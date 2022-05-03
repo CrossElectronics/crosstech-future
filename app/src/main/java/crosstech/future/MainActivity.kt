@@ -3,6 +3,7 @@ package crosstech.future
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import crosstech.future.databinding.ActivityMainBinding
+import crosstech.future.gui.Initializations
 
 class MainActivity : AppCompatActivity()
 {
@@ -12,6 +13,8 @@ class MainActivity : AppCompatActivity()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
+        val navigationBar = binding.navigationView
+        Initializations.popNavigationBar(navigationBar)
         setContentView(view)
     }
 }
