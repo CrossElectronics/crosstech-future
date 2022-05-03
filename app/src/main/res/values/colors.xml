@@ -15,4 +15,12 @@
     <color name="secondaryDarkColor">#b61827</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
+    <color name="primaryColorNight">#424242</color>
+    <color name="primaryLightColorNight">#6d6d6d</color>
+    <color name="primaryDarkColorNight">#1b1b1b</color>
+    <color name="secondaryColorNight">#37474f</color>
+    <color name="secondaryLightColorNight">#62727b</color>
+    <color name="secondaryDarkColorNight">#102027</color>
+    <color name="primaryTextColorNight">#ffffff</color>
+    <color name="secondaryTextColorNight">#ffffff</color>
 </resources>

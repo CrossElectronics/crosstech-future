@@ -11,6 +11,7 @@ class MainActivity : AppCompatActivity()
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
+        // initialization
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         val navigationBar = binding.navigationView

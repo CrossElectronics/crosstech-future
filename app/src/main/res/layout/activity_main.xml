@@ -10,10 +10,11 @@
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@color/black"
+        app:itemIconTint="@color/primaryColor"
+        app:itemTextColor="@color/primaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/nav_view_res" />
+        app:menu="@menu/nav_view_res"
+        android:elevation="8dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
