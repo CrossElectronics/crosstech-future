@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/dashboardTab"
+        android:icon="@drawable/dashboard"
+        android:title="@string/dashboard_tab"/>
+    <item android:id="@+id/taskTab"
+        android:icon="@drawable/tasks"
+        android:title="@string/tasks_tab"/>
+    <item android:id="@+id/milestoneTab"
+        android:icon="@drawable/milestone"
+        android:title="@string/milestones_tab"/>
+    <item android:id="@+id/statsTab"
+        android:icon="@drawable/stats"
+        android:title="@string/stats_tab"/>
+</menu>

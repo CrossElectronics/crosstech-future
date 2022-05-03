@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CrossTech Future</string>
+    <string name="dashboard_tab">Dashboard</string>
+    <string name="tasks_tab">Tasks</string>
+    <string name="milestones_tab">Milestones</string>
+    <string name="stats_tab">Statistics</string>
 </resources>
