@@ -6,4 +6,5 @@
     <string name="stats_tab">Statistics</string>
     <string name="ongoing_devotion">Ongoing Devotion</string>
     <string name="tap_to_devote_now">Tap to devote now</string>
+    <string name="scheduled_today">Scheduled Today</string>
 </resources>
