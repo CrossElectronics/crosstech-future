@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/dashboardTab"
+    <item
+        android:id="@+id/dashboardFragment"
         android:icon="@drawable/dashboard"
-        android:title="@string/dashboard_tab"/>
-    <item android:id="@+id/taskTab"
+        android:title="@string/dashboard_tab" />
+    <item
+        android:id="@+id/tasksFragment"
         android:icon="@drawable/tasks"
-        android:title="@string/tasks_tab"/>
-    <item android:id="@+id/milestoneTab"
+        android:title="@string/tasks_tab" />
+    <item
+        android:id="@+id/milestoneFragment"
         android:icon="@drawable/milestone"
-        android:title="@string/milestones_tab"/>
-    <item android:id="@+id/statsTab"
+        android:title="@string/milestones_tab" />
+    <item
+        android:id="@+id/statsFragment"
         android:icon="@drawable/stats"
-        android:title="@string/stats_tab"/>
+        android:title="@string/stats_tab" />
 </menu>
