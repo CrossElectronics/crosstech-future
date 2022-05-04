@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_chart"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="crosstech.future.DashboardFragment"
+        android:label="DashboardFragment" />
+    <fragment
+        android:id="@+id/milestoneFragment"
+        android:name="crosstech.future.MilestoneFragment"
+        android:label="MilestoneFragment" />
+    <fragment
+        android:id="@+id/statsFragment"
+        android:name="crosstech.future.StatsFragment"
+        android:label="StatsFragment" />
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="crosstech.future.TasksFragment"
+        android:label="TasksFragment" />
+</navigation>
