@@ -2,11 +2,13 @@
 <resources>
     <dimen name="icon_size">32dp</dimen>
     <dimen name="icon_padding">4dp</dimen>
-    <dimen name="timer_text">60sp</dimen>
+    <dimen name="timer_text">54sp</dimen>
     <dimen name="card_title_padding">8dp</dimen>
     <dimen name="card_title_vertical_padding">2dp</dimen>
     <dimen name="circle_diameter">32dp</dimen>
     <dimen name="card_title_text_size">16sp</dimen>
     <dimen name="icon_size_small">16dp</dimen>
     <dimen name="card_bottom_padding">8dp</dimen>
+    <dimen name="card_bottom_margin">16dp</dimen>
+    <dimen name="card_bottom_text_left_padding">16dp</dimen>
 </resources>

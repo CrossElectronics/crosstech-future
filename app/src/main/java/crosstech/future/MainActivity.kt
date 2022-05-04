@@ -1,7 +1,9 @@
 package crosstech.future
 
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import crosstech.future.databinding.ActivityMainBinding
 import crosstech.future.gui.Initializations
 

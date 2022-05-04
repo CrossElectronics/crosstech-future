@@ -4,7 +4,7 @@
         android:drawable="@drawable/circle"
         android:width="@dimen/icon_size_small"
         android:height="@dimen/icon_size_small"
-        android:end="@dimen/icon_padding"
+        android:end="8dp"
         android:start="@dimen/icon_padding"
         android:top="@dimen/icon_padding"
         android:bottom="@dimen/icon_padding"/>
