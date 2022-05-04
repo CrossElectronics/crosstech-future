@@ -15,7 +15,10 @@ class MainActivity : AppCompatActivity()
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         val navigationBar = binding.navigationView
+        // sets the listeners of the bottom nav bar
         Initializations.popNavigationBar(navigationBar)
+        // sets the toolbar as app bar
+        setSupportActionBar(binding.toolbar)
         setContentView(view)
     }
 }
