@@ -1,11 +1,7 @@
 package crosstech.future
 
-import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import crosstech.future.databinding.ActivityMainBinding
@@ -21,8 +17,9 @@ class MainActivity : AppCompatActivity()
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         val navigationBar = binding.navigationBar
+        // following code is deprecated since only one listener is set at any time
         // sets the listeners of the bottom nav bar
-        Initializations.popNavigationBar(navigationBar)
+        //Initializations.popNavigationView(navigationBar)
         // sets the toolbar as app bar
         setSupportActionBar(binding.toolbar)
         // configures navigation controller
@@ -30,6 +27,8 @@ class MainActivity : AppCompatActivity()
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val navController = navHostFragment.navController
         navigationBar.setupWithNavController(navController)
+        Initializations.setupNavController(navController, navigationBar)
         setContentView(view)
+
     }
 }

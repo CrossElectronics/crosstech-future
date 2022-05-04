@@ -1,7 +1,9 @@
 package crosstech.future.gui
 
 import android.util.Log
+import android.view.ContextThemeWrapper
 import androidx.core.view.forEach
+import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import crosstech.future.R
 import java.lang.Exception
@@ -11,14 +13,14 @@ class Initializations
 {
     companion object
     {
-        fun popNavigationBar(view: BottomNavigationView)
+        fun setupNavController(controller: NavController, navbar: BottomNavigationView)
         {
-            view.updateIcon(view.selectedItemId)
-            view.setOnItemSelectedListener {
-                view.updateIcon(it.itemId)
-                when (it.itemId)
+            navbar.updateIcon(navbar.selectedItemId)
+            controller.addOnDestinationChangedListener { _, dest, _ ->
+                navbar.updateIcon(dest.id)
+                when (dest.id)
                 {
-                    // TODO: Add activity switching to the placeholder 
+                    // TODO: Add activity switching to the placeholder
                     R.id.dashboardFragment ->
                     {
 
@@ -36,14 +38,11 @@ class Initializations
 
                     }
                 }
-                true
             }
-
         }
 
         private fun BottomNavigationView.updateIcon(itemId: Int)
         {
-            Log.i("DEBUG", "ITEMID $itemId")
             this.menu.forEach {
                 it.setIcon(
                     when (it.itemId)
