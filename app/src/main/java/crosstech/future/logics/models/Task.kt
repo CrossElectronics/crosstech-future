@@ -44,7 +44,7 @@ data class Task(
         scheduledTime: LocalDateTime,
         deadline: LocalDateTime? = null,
         reminder: Boolean = false
-    )
+    ): Task
     {
         if (status != TaskStatus.Planned)
             throw IllegalStateException("Cannot schedule task from an unplanned state")
@@ -52,6 +52,7 @@ data class Task(
         this.scheduledTime = scheduledTime
         this.deadline = deadline
         this.reminder = reminder
+        return this
     }
 
     /**
@@ -61,7 +62,7 @@ data class Task(
      * @throws IllegalStateException if status is not planned or scheduled
      * @throws IllegalArgumentException if efficiency is out of range
      */
-    fun complete(completedTime: LocalDateTime, efficiency: Int)
+    fun complete(completedTime: LocalDateTime, efficiency: Int): Task
     {
         if (status != TaskStatus.Scheduled || status != TaskStatus.Planned)
             throw IllegalStateException("Cannot complete unscheduled or unplanned state")
@@ -71,13 +72,14 @@ data class Task(
         this.completedTime = completedTime
         this.efficiency = efficiency
         reminder = false
+        return this
     }
 
     /**
      * Unschedules already scheduled task back into planned state
      * @throws IllegalStateException if status is not scheduled
      */
-    fun unschedule()
+    fun unschedule(): Task
     {
         if (status != TaskStatus.Scheduled)
             throw IllegalStateException("Cannot unschedule unscheduled task")
@@ -85,19 +87,21 @@ data class Task(
         deadline = null
         reminder = false
         scheduledTime = null
+        return this
     }
 
     /**
      * Reopens already completed task back into planned state
      * @throws IllegalStateException if status is not completed
      */
-    fun reopen()
+    fun reopen(): Task
     {
         if (status != TaskStatus.Completed)
             throw IllegalStateException("Cannot reopen uncompleted task")
         status = TaskStatus.Scheduled
         deadline = null
         scheduledTime = null
+        return this
     }
 
     /**
