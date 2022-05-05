@@ -28,6 +28,7 @@ class ExampleUnitTest
             "lorem ipsum of the day",
             LocalDateTime.now(),
             Urgency.Normal,
+            false,
             5
         )
         val task2 = Task(
@@ -35,13 +36,26 @@ class ExampleUnitTest
             "Lorem ipsum of another day",
             LocalDateTime.now(),
             Urgency.Urgent,
+            false,
             9
         ).schedule(
             LocalDateTime.now().plusMinutes(1),
-            LocalDateTime.now().plusDays(1),
+            LocalDateTime.now().plusDays(1)
+        )
+        val task3 = Task(
+            "An Important Task",
+            "Needs to address soon",
+            LocalDateTime.now().plusMinutes(1),
+            Urgency.Urgent,
+            true,
+            9
+        ).schedule(
+            LocalDateTime.now().plusMinutes(1),
+            LocalDateTime.now().plusDays(1)
         )
         tasks.add(task)
         tasks.add(task2)
+        tasks.add(task3)
         val seri = ProtoBuf.encodeToHexString(tasks)
         val size = seri.length / 2
         println(seri)
@@ -58,6 +72,7 @@ class ExampleUnitTest
             "lorem ipsum of the day",
             LocalDateTime.now(),
             Urgency.Normal,
+            false,
             5
         )
         val serialized = ProtoBuf.encodeToHexString(task)

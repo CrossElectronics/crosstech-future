@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import crosstech.future.databinding.ActivityMainBinding
 import crosstech.future.gui.Initializations
+import crosstech.future.logics.models.TaskListAdapter
 
 class MainActivity : AppCompatActivity()
 {

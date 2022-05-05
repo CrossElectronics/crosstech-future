@@ -8,4 +8,6 @@
     <color name="secondaryDarkColor">#102027</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
+    <color name="tabSelectedColor">#ffffff</color>
+    <color name="tabNotSelectedColor">#6d6d6d</color>
 </resources>

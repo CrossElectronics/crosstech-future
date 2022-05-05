@@ -11,4 +11,10 @@
     <dimen name="card_bottom_padding">8dp</dimen>
     <dimen name="card_bottom_margin">16dp</dimen>
     <dimen name="card_bottom_text_left_padding">16dp</dimen>
+    <dimen name="card_radius">6dp</dimen>
+    <dimen name="card_elevation">6dp</dimen>
+    <dimen name="task_summary_text">18sp</dimen>
+    <dimen name="task_card_margin">8dp</dimen>
+    <dimen name="task_padding">8dp</dimen>
+    <dimen name="hash_text">30sp</dimen>
 </resources>
