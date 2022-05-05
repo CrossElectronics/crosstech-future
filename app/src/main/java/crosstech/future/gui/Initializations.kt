@@ -6,6 +6,10 @@ import androidx.core.view.forEach
 import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import crosstech.future.R
+import crosstech.future.logics.models.Task
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.decodeFromHexString
+import kotlinx.serialization.protobuf.ProtoBuf
 import java.lang.Exception
 import kotlin.math.log
 
@@ -55,6 +59,20 @@ class Initializations
                     }
                 )
             }
+        }
+
+        @OptIn(ExperimentalSerializationApi::class)
+        inline fun <reified T> loadData(): T
+        {
+            // TODO: Actually load from disk
+            val dummy =
+                "02470a0a44756d6d79207461736b12166c6f72656d20697073756d206f66207468652064617" +
+                        "91a1d323032322d30352d30355431343a34333a30392e3237373133373730302001280595010a14" +
+                        "44756d6d79205363686564756c6564205461736b121a4c6f72656d20697073756d206f6620616e6" +
+                        "f74686572206461791a1d323032322d30352d30355431343a34333a30392e323738313334393030" +
+                        "200228093001421d323032322d30352d30355431343a34343a30392e323738313334393030521d3" +
+                        "23032322d30352d30365431343a34333a30392e323738313334393030"
+            return ProtoBuf.decodeFromHexString<T>(dummy)
         }
     }
 }

@@ -20,6 +20,37 @@ import java.time.LocalDateTime
 class ExampleUnitTest
 {
     @Test
+    fun tasksListSerialization()
+    {
+        val tasks: MutableList<Task> = mutableListOf()
+        val task = Task(
+            "Dummy task",
+            "lorem ipsum of the day",
+            LocalDateTime.now(),
+            Urgency.Normal,
+            5
+        )
+        val task2 = Task(
+            "Dummy Scheduled Task",
+            "Lorem ipsum of another day",
+            LocalDateTime.now(),
+            Urgency.Urgent,
+            9
+        ).schedule(
+            LocalDateTime.now().plusMinutes(1),
+            LocalDateTime.now().plusDays(1),
+        )
+        tasks.add(task)
+        tasks.add(task2)
+        val seri = ProtoBuf.encodeToHexString(tasks)
+        val size = seri.length / 2
+        println(seri)
+        println(size)
+        val deseri = ProtoBuf.decodeFromHexString<List<Task>>(seri)
+        assert(deseri.count() == tasks.count())
+    }
+
+    @Test
     fun taskSerialization()
     {
         val task = Task(
