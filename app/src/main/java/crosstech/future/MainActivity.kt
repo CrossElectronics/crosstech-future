@@ -16,11 +16,9 @@ class MainActivity : AppCompatActivity()
         // initialization
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
+        setContentView(view)
+        // configures bottom and top bar
         val navigationBar = binding.navigationBar
-        // following code is deprecated since only one listener is set at any time
-        // sets the listeners of the bottom nav bar
-        //Initializations.popNavigationView(navigationBar)
-        // sets the toolbar as app bar
         setSupportActionBar(binding.toolbar)
         // configures navigation controller
         val navHostFragment =
@@ -28,7 +26,5 @@ class MainActivity : AppCompatActivity()
         val navController = navHostFragment.navController
         navigationBar.setupWithNavController(navController)
         Initializations.setupNavController(navController, navigationBar)
-        setContentView(view)
-
     }
 }
