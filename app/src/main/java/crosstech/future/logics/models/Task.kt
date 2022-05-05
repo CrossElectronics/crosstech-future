@@ -4,13 +4,16 @@ import crosstech.future.logics.Utils.Companion.computeSHA1
 import crosstech.future.logics.enums.TaskIcon
 import crosstech.future.logics.enums.TaskStatus
 import crosstech.future.logics.enums.Urgency
+import crosstech.future.logics.models.serializers.LocalDateTimeAsStringSerializer
 import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
+import kotlinx.serialization.Serializable
 
-@kotlinx.serialization.Serializable
+@Serializable
 data class Task(
     var name: String,
     var description: String?,
+    @Serializable(with = LocalDateTimeAsStringSerializer::class)
     var creationTime: LocalDateTime,
     var urgency: Urgency,
     var estDifficulty: Int,
@@ -18,8 +21,13 @@ data class Task(
     private var iconEnum: TaskIcon = TaskIcon.Planned
 )
 {
+    @Serializable(with = LocalDateTimeAsStringSerializer::class)
     lateinit var scheduledTime: LocalDateTime
+
+    @Serializable(with = LocalDateTimeAsStringSerializer::class)
     lateinit var completedTime: LocalDateTime
+
+    @Serializable(with = LocalDateTimeAsStringSerializer::class)
     var deadline: LocalDateTime? = null
     var reminder: Boolean = false
     var efficiency: Int = 0
