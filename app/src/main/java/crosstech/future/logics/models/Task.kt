@@ -104,6 +104,16 @@ data class Task(
         return this
     }
 
+    fun archive(): ArchivedTask =
+        if (status == TaskStatus.Completed) ArchivedTask(
+            name,
+            description,
+            creationTime,
+            completedTime!!,
+            getSHA1()
+        )
+        else throw IllegalStateException("Cannot archive uncompleted task")
+
     /**
      * Calculates message digestion of current task regardless of further status change
      * unless the name, description or the creation time is changed
