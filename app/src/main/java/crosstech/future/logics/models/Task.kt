@@ -22,10 +22,10 @@ data class Task(
 )
 {
     @Serializable(with = LocalDateTimeAsStringSerializer::class)
-    lateinit var scheduledTime: LocalDateTime
+    var scheduledTime: LocalDateTime? = null
 
     @Serializable(with = LocalDateTimeAsStringSerializer::class)
-    lateinit var completedTime: LocalDateTime
+    var completedTime: LocalDateTime? = null
 
     @Serializable(with = LocalDateTimeAsStringSerializer::class)
     var deadline: LocalDateTime? = null
@@ -84,6 +84,7 @@ data class Task(
         status = TaskStatus.Planned
         deadline = null
         reminder = false
+        scheduledTime = null
     }
 
     /**
@@ -95,6 +96,8 @@ data class Task(
         if (status != TaskStatus.Completed)
             throw IllegalStateException("Cannot reopen uncompleted task")
         status = TaskStatus.Scheduled
+        deadline = null
+        scheduledTime = null
     }
 
     /**
@@ -103,4 +106,26 @@ data class Task(
      * @return SHA1 of this task in HEX, lowercase
      */
     fun getSHA1() = (name + description + creationTime).computeSHA1()
+
+    override fun equals(other: Any?): Boolean
+    {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Task
+
+        if (name != other.name) return false
+        if (description != other.description) return false
+        if (creationTime != other.creationTime) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int
+    {
+        var result = name.hashCode()
+        result = 31 * result + (description?.hashCode() ?: 0)
+        result = 31 * result + creationTime.hashCode()
+        return result
+    }
 }
