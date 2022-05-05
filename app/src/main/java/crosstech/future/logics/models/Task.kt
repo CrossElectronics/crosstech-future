@@ -16,9 +16,10 @@ data class Task(
     @Serializable(with = LocalDateTimeAsStringSerializer::class)
     var creationTime: LocalDateTime,
     var urgency: Urgency,
+    var isImportant: Boolean,
     var estDifficulty: Int,
     private var status: TaskStatus = TaskStatus.Planned,
-    private var iconEnum: TaskIcon = TaskIcon.Planned
+    var iconEnum: TaskIcon = TaskIcon.Planned
 )
 {
     @Serializable(with = LocalDateTimeAsStringSerializer::class)
@@ -52,6 +53,7 @@ data class Task(
         this.scheduledTime = scheduledTime
         this.deadline = deadline
         this.reminder = reminder
+        iconEnum = TaskIcon.Scheduled
         return this
     }
 
@@ -72,6 +74,7 @@ data class Task(
         this.completedTime = completedTime
         this.efficiency = efficiency
         reminder = false
+        iconEnum = TaskIcon.Completed
         return this
     }
 
@@ -87,6 +90,7 @@ data class Task(
         deadline = null
         reminder = false
         scheduledTime = null
+        iconEnum = TaskIcon.Planned
         return this
     }
 
@@ -98,9 +102,10 @@ data class Task(
     {
         if (status != TaskStatus.Completed)
             throw IllegalStateException("Cannot reopen uncompleted task")
-        status = TaskStatus.Scheduled
+        status = TaskStatus.Planned
         deadline = null
         scheduledTime = null
+        iconEnum = TaskIcon.Planned
         return this
     }
 
