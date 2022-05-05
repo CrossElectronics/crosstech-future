@@ -10,6 +10,7 @@ import crosstech.future.gui.Initializations
 class MainActivity : AppCompatActivity()
 {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var global: Global
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -26,5 +27,8 @@ class MainActivity : AppCompatActivity()
         val navController = navHostFragment.navController
         navigationBar.setupWithNavController(navController)
         Initializations.setupNavController(navController, navigationBar)
+        // loads data
+        global = applicationContext as Global
+        global.tasks = Initializations.loadData()
     }
 }
