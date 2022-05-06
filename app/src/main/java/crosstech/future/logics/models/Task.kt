@@ -26,6 +26,11 @@ data class Task(
     var iconEnum: TaskIcon = TaskIcon.Planned
 )
 {
+    init
+    {
+        if (isImportant) iconEnum = TaskIcon.Important
+    }
+
     @Serializable(with = LocalDateTimeAsStringSerializer::class)
     var scheduledTime: LocalDateTime? = null
 
@@ -36,6 +41,18 @@ data class Task(
     var deadline: LocalDateTime? = null
     var reminder: Boolean = false
     var efficiency: Int = 0
+
+    /**
+     * Creates a default empty task
+     */
+    constructor() : this(
+        name = "",
+        description = "",
+        creationTime = LocalDateTime.now(),
+        urgency = Urgency.Normal,
+        isImportant = false,
+        estDifficulty = 5
+    )
 
     /**
      * Gets the tag (status summary) of current task

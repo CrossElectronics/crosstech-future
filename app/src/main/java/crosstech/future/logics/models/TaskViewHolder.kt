@@ -9,6 +9,7 @@ import crosstech.future.R
 
 class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 {
+    // TODO: clean up
     val taskIcon: ImageView = itemView.findViewById(R.id.taskIcon)
     val taskName: TextView = itemView.findViewById(R.id.taskName)
     val subType: TextView = itemView.findViewById(R.id.subtitleType)
