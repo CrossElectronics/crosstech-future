@@ -8,6 +8,7 @@
         <entry key="..\:/Workbench/Android/CrossTechFuture/app/src/main/res/drawable/circle_outline.xml" value="0.195" />
         <entry key="..\:/Workbench/Android/CrossTechFuture/app/src/main/res/drawable/circle_small.xml" value="0.271" />
         <entry key="..\:/Workbench/Android/CrossTechFuture/app/src/main/res/drawable/commit_small.xml" value="0.271" />
+        <entry key="..\:/Workbench/Android/CrossTechFuture/app/src/main/res/drawable/save.xml" value="0.1075" />
         <entry key="..\:/Workbench/Android/CrossTechFuture/app/src/main/res/drawable/task_planned.xml" value="0.195" />
         <entry key="..\:/Workbench/Android/CrossTechFuture/app/src/main/res/drawable/task_scheduled.xml" value="0.195" />
         <entry key="..\:/Workbench/Android/CrossTechFuture/app/src/main/res/font/major_mono_display.xml" value="0.21458333333333332" />
@@ -22,6 +23,7 @@
         <entry key="..\:/Workbench/Android/CrossTechFuture/app/src/main/res/layout/task_edit_fragment.xml" value="0.25" />
         <entry key="..\:/Workbench/Android/CrossTechFuture/app/src/main/res/layout/tasks_fragment.xml" value="0.25" />
         <entry key="..\:/Workbench/Android/CrossTechFuture/app/src/main/res/menu/nav_view_res.xml" value="0.25" />
+        <entry key="..\:/Workbench/Android/CrossTechFuture/app/src/main/res/menu/task_edit_toolbar.xml" value="0.3558974358974359" />
       </map>
     </option>
   </component>
