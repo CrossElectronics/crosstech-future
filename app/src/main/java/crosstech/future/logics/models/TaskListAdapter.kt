@@ -48,7 +48,7 @@ class TaskListAdapter(private val data: List<Task>) :
         holder.taskIcon.setImageResource(
             when (item.iconEnum)
             {
-                TaskIcon.Planned   -> R.drawable.circle_outline
+                TaskIcon.Planned   -> R.drawable.circle_planned
                 TaskIcon.Scheduled -> R.drawable.task_scheduled
                 TaskIcon.Deadline  -> R.drawable.deadline
                 TaskIcon.Important -> R.drawable.task_important
