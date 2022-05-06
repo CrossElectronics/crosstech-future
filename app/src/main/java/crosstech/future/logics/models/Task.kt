@@ -8,6 +8,7 @@ import crosstech.future.logics.models.serializers.LocalDateTimeAsStringSerialize
 import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 
 @Serializable
 data class Task(
