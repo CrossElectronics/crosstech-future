@@ -90,7 +90,7 @@ class TaskListAdapter(private val data: List<Task>) :
             {
                 holder.subType.text = context.getString(R.string.app_deadline)
                 holder.subName.text =
-                    (DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(item.deadline))
+                    (DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(item.deadline))
                         .replace("T", " ")
             }
             else               ->
@@ -110,7 +110,7 @@ class TaskListAdapter(private val data: List<Task>) :
     {
         holder.subType.text = context.getString(R.string.scheduled_start)
         holder.subName.text =
-            (DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(item.scheduledTime))
+            (DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(item.scheduledTime))
                 .replace("T", " ")
     }
 }

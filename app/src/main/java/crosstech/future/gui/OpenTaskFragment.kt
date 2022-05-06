@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import crosstech.future.Global
 import crosstech.future.R
 import crosstech.future.databinding.OpenTaskFragmentBinding
+import crosstech.future.logics.enums.TaskStatus
 import crosstech.future.logics.models.TaskListAdapter
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,21 +46,26 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
         savedInstanceState: Bundle?
     ): View?
     {
+        binding = OpenTaskFragmentBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.open_task_fragment, container, false)
+        //return inflater.inflate(R.layout.open_task_fragment, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
-        binding = OpenTaskFragmentBinding.inflate(layoutInflater)
+
         global = activity?.applicationContext as Global
 
-        val tasks = global.tasks
+        val tasks =
+            global.tasks.filter { it.status == TaskStatus.Planned || it.status == TaskStatus.Scheduled }
+        binding.plannedCount.text = tasks.count { it.status == TaskStatus.Planned }.toString()
+        binding.scheduledCount.text = tasks.count { it.status == TaskStatus.Scheduled }.toString()
         val adapter = TaskListAdapter(tasks)
-        val taskRecycler = activity?.findViewById<RecyclerView>(R.id.taskRecycler)
-        taskRecycler?.adapter = adapter
-        taskRecycler?.layoutManager = LinearLayoutManager(activity)
+        val taskRecycler = binding.taskRecycler
+        taskRecycler.adapter = adapter
+        taskRecycler.layoutManager = LinearLayoutManager(activity)
     }
 
     companion object
