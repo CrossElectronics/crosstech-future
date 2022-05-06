@@ -91,7 +91,7 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
             newTaskFrag.arguments = bundle
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .add(R.id.fragmentContainerView, newTaskFrag).addToBackStack(null).commit()
+                .add(R.id.content, newTaskFrag).addToBackStack(null).commit()
         }
     }
 
