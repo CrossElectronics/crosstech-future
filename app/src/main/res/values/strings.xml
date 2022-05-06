@@ -11,11 +11,24 @@
     <string name="open">Open</string>
     <string name="completed">Completed</string>
     <string name="archived">Archived</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="planned">Planned</string>
     <string name="scheduled">Scheduled</string>
     <string name="scheduled_start">Scheduled start</string>
     <string name="app_deadline">Approaching Deadline</string>
     <string name="add_task">Add task</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="date">Creation date</string>
+    <string name="time">Time</string>
+    <string name="urgency">URGENCY</string>
+    <string name="difficulty">DIFFICULTY</string>
+    <string name="difficulty_slider">Difficulty slider</string>
+    <string name="urgency_slider">Urgency slider</string>
+    <string name="mark_as_important">Mark as important</string>
+    <string name="also_schedule_this_task">Also schedule this task</string>
+    <string name="planned_date">Planned date</string>
+    <string name="set_a_deadline">Set a deadline</string>
+    <string name="deadline_date">Deadline date</string>
+    <string name="remind_me_of_schedule_or_deadline">Remind me of schedule (and deadline)</string>
 </resources>
