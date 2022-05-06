@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import crosstech.future.Global
 import crosstech.future.R
 import crosstech.future.databinding.OpenTaskFragmentBinding
@@ -64,8 +65,23 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
         binding.scheduledCount.text = tasks.count { it.status == TaskStatus.Scheduled }.toString()
         val adapter = TaskListAdapter(tasks)
         val taskRecycler = binding.taskRecycler
+        val fab = binding.addTaskFab
         taskRecycler.adapter = adapter
         taskRecycler.layoutManager = LinearLayoutManager(activity)
+        // make the fab hide when scrolling down, appear scrolling up
+        taskRecycler.addOnScrollListener(
+            object : OnScrollListener()
+            {
+                override fun onScrolled(
+                    recyclerView: RecyclerView,
+                    dx: Int,
+                    dy: Int
+                )
+                {
+                    if (dy > 0) fab.hide()
+                    if (dy < 0) fab.show()
+                }
+            })
     }
 
     companion object

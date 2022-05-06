@@ -17,4 +17,5 @@
     <string name="scheduled">Scheduled</string>
     <string name="scheduled_start">Scheduled start</string>
     <string name="app_deadline">Approaching Deadline</string>
+    <string name="add_task">Add task</string>
 </resources>
