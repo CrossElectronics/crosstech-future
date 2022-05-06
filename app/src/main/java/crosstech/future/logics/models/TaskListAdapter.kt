@@ -42,6 +42,8 @@ class TaskListAdapter(private val data: List<Task>) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int)
     {
+        // TODO: Need a more elegant solution than this. This only solves the problem quick and dirty
+        holder.setIsRecyclable(false)
         val item = data[position]
         holder.taskIcon.setImageResource(
             when (item.iconEnum)

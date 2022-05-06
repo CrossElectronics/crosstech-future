@@ -2,11 +2,9 @@ package crosstech.future
 
 import crosstech.future.logics.enums.Urgency
 import crosstech.future.logics.models.Task
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.decodeFromHexString
-import kotlinx.serialization.encodeToByteArray
-import kotlinx.serialization.encodeToHexString
+import kotlinx.serialization.*
 import kotlinx.serialization.protobuf.ProtoBuf
+import kotlinx.serialization.protobuf.ProtoBuf.Default.decodeFromByteArray
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -18,6 +16,7 @@ import java.util.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
+@OptIn(ExperimentalSerializationApi::class)
 class ExampleUnitTest
 {
     @Test
@@ -121,7 +120,9 @@ class ExampleUnitTest
         )
         val serialized = ProtoBuf.encodeToByteArray(tasks)
         val string = Base64.getEncoder().encodeToString(serialized)
+        val deseri: List<Task> = ProtoBuf.decodeFromByteArray(serialized)
         println(string)
+        assertArrayEquals(tasks.toTypedArray(), deseri.toTypedArray())
     }
 
     @Test
