@@ -1,5 +1,7 @@
 package crosstech.future.logics.models
 
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.Log
 import crosstech.future.logics.Utils.Companion.computeSHA1
 import crosstech.future.logics.enums.TaskIcon
@@ -11,6 +13,7 @@ import java.time.LocalDateTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import java.time.temporal.ChronoUnit
+import kotlin.concurrent.timer
 import kotlin.math.log
 
 @Serializable
@@ -24,7 +27,7 @@ data class Task(
     var estDifficulty: Int,
     var status: TaskStatus = TaskStatus.Planned,
     var iconEnum: TaskIcon = TaskIcon.Planned
-)
+) : Parcelable
 {
     init
     {
@@ -41,6 +44,24 @@ data class Task(
     var deadline: LocalDateTime? = null
     var reminder: Boolean = false
     var efficiency: Int = 0
+
+    constructor(parcel: Parcel) : this(
+        parcel.readString()!!,
+        parcel.readString(),
+        parcel.readSerializable() as LocalDateTime,
+        parcel.readSerializable() as Urgency,
+        parcel.readByte() != 0.toByte(),
+        parcel.readInt(),
+        parcel.readSerializable() as TaskStatus,
+        parcel.readSerializable() as TaskIcon
+    )
+    {
+        scheduledTime = parcel.readSerializable() as LocalDateTime?
+        completedTime = parcel.readSerializable() as LocalDateTime?
+        deadline = parcel.readSerializable() as LocalDateTime?
+        reminder = parcel.readByte() != 0.toByte()
+        efficiency = parcel.readInt()
+    }
 
     /**
      * Creates a default empty task
@@ -212,5 +233,40 @@ data class Task(
         result = 31 * result + (description?.hashCode() ?: 0)
         result = 31 * result + creationTime.hashCode()
         return result
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int)
+    {
+        parcel.writeString(name)
+        parcel.writeString(description)
+        parcel.writeSerializable(creationTime)
+        parcel.writeSerializable(urgency)
+        parcel.writeByte(if (isImportant) 1 else 0)
+        parcel.writeInt(estDifficulty)
+        parcel.writeSerializable(status)
+        parcel.writeSerializable(iconEnum)
+        parcel.writeSerializable(scheduledTime)
+        parcel.writeSerializable(completedTime)
+        parcel.writeSerializable(deadline)
+        parcel.writeByte(if (reminder) 1 else 0)
+        parcel.writeInt(efficiency)
+    }
+
+    override fun describeContents(): Int
+    {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Task>
+    {
+        override fun createFromParcel(parcel: Parcel): Task
+        {
+            return Task(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Task?>
+        {
+            return arrayOfNulls(size)
+        }
     }
 }
