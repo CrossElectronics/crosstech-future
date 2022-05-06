@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
@@ -14,6 +15,7 @@ import crosstech.future.R
 import crosstech.future.databinding.OpenTaskFragmentBinding
 import crosstech.future.logics.enums.TaskStatus
 import crosstech.future.logics.managers.TasksManager
+import crosstech.future.logics.models.Task
 import crosstech.future.logics.models.TaskListAdapter
 
 // TODO: Rename parameter arguments, choose names that match
@@ -46,7 +48,7 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View?
+    ): View
     {
         binding = OpenTaskFragmentBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
@@ -82,6 +84,15 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
                     if (dy < 0) fab.show()
                 }
             })
+        fab.setOnClickListener {
+            val newTaskFrag = TaskEditFragment()
+            val bundle = Bundle()
+            bundle.putParcelable("parcel", Task())
+            newTaskFrag.arguments = bundle
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .add(R.id.fragmentContainerView, newTaskFrag).addToBackStack(null).commit()
+        }
     }
 
     companion object
