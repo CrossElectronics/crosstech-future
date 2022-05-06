@@ -19,15 +19,18 @@ class TasksManager
             val important = tasks.filter { it.isImportant }
             for (item in important) item.iconEnum = TaskIcon.Important
             val deadlineApproaching =
-                filtered.filter { it.deadline != null }
-                    .filter { ChronoUnit.HOURS.between(LocalDateTime.now(), it.deadline) <= 24 }
+                filtered.filter { it.isDeadlineApproaching() }
             for (item in deadlineApproaching) item.iconEnum = TaskIcon.Deadline
             // sort
             val sortedList = filtered.sortedWith(
-                compareByDescending<Task> { it.urgency == Urgency.Urgent }
-                    .thenByDescending { it.isImportant }
-                    .thenBy { ChronoUnit.MINUTES.between(LocalDateTime.now(), it.deadline) }
-                    .thenBy { it.scheduledTime })
+                compareByDescending<Task> { it.getPriority() }
+                    .thenBy {
+                        ChronoUnit.MINUTES.between(
+                            LocalDateTime.now(),
+                            it.deadline ?: LocalDateTime.MAX
+                        )
+                    }
+                    .thenBy { it.scheduledTime ?: LocalDateTime.MAX })
             return sortedList.toMutableList()
         }
     }

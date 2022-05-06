@@ -1,5 +1,6 @@
 package crosstech.future.logics.models
 
+import android.util.Log
 import crosstech.future.logics.Utils.Companion.computeSHA1
 import crosstech.future.logics.enums.TaskIcon
 import crosstech.future.logics.enums.TaskStatus
@@ -9,6 +10,8 @@ import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
+import java.time.temporal.ChronoUnit
+import kotlin.math.log
 
 @Serializable
 data class Task(
@@ -33,6 +36,51 @@ data class Task(
     var deadline: LocalDateTime? = null
     var reminder: Boolean = false
     var efficiency: Int = 0
+
+    /**
+     * Gets the tag (status summary) of current task
+     */
+    fun getTag(): String
+    {
+        val result = when
+        {
+            isDeadlineApproaching()                   -> "Deadline approaching"
+            urgency == Urgency.Urgent && !isImportant -> "Urgent"
+            urgency != Urgency.Urgent && isImportant  -> "Important"
+            urgency == Urgency.Urgent && isImportant  -> "Urgent important"
+            status == TaskStatus.Scheduled            -> "Scheduled"
+            else                                      -> "Planned"
+        }
+        return result
+    }
+
+    /**
+     * Gets the priority of current task, higher means more important
+     */
+    fun getPriority(): Int
+    {
+        var priority = 0
+        priority += when (urgency)
+        {
+            Urgency.Casual -> 0
+            Urgency.Normal -> 2
+            Urgency.Urgent -> 4
+        }
+        priority += if (isImportant) 2 else 0
+        priority += if (scheduledTime != null) 1 else 0
+        priority += when
+        {
+            deadline == null        -> 0
+            isDeadlineApproaching() -> 2
+            else                    -> 1
+        }
+        return priority
+    }
+
+    fun isDeadlineApproaching() =
+        if (deadline == null) false
+        else
+            ChronoUnit.HOURS.between(LocalDateTime.now(), deadline) <= 24
 
     /**
      * Schedules this planned task
