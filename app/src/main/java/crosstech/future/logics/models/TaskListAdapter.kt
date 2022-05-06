@@ -13,19 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import crosstech.future.R
 import crosstech.future.logics.enums.TaskIcon
+import crosstech.future.logics.enums.Urgency
 import java.lang.IllegalArgumentException
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class TaskListAdapter(private val data: List<Task>) :
     RecyclerView.Adapter<TaskListAdapter.ViewHolder>()
 {
-    val TAG = "=> DEBUG >==>"
-
-    init
-    {
-        Log.d(TAG, "constructor, checked")
-    }
-
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
         val taskIcon: ImageView = itemView.findViewById(R.id.taskIcon)
@@ -39,7 +34,6 @@ class TaskListAdapter(private val data: List<Task>) :
     private lateinit var context: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
     {
-        Log.d(TAG, "onCreateViewHolder, checked")
         val view = LayoutInflater.from(parent.context).inflate(R.layout.task_card, parent, false)
         context = view.context
         return ViewHolder(view)
@@ -48,7 +42,6 @@ class TaskListAdapter(private val data: List<Task>) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int)
     {
-        Log.d(TAG, "onBindViewHolder, checked")
         val item = data[position]
         holder.taskIcon.setImageResource(
             when (item.iconEnum)
@@ -67,31 +60,34 @@ class TaskListAdapter(private val data: List<Task>) :
         {
             TaskIcon.Planned   ->
             {
-                holder.subName.visibility = View.GONE
-                holder.subType.visibility = View.GONE
+                if (item.urgency != Urgency.Urgent)
+                {
+                    holder.subName.visibility = View.GONE
+                    holder.subType.visibility = View.GONE
+                }
+                else
+                {
+                    bindData(holder, item.getTag(), null)
+                }
             }
             TaskIcon.Scheduled ->
             {
-                bindData(item, holder)
+                bindData(holder, item.getTag(), item.scheduledTime)
             }
             TaskIcon.Important ->
             {
                 if (item.scheduledTime != null)
                 {
-                    bindData(item, holder)
+                    bindData(holder, item.getTag(), item.scheduledTime)
                 }
                 else
                 {
-                    holder.subName.visibility = View.GONE
-                    holder.subType.visibility = View.GONE
+                    bindData(holder, item.getTag(), null)
                 }
             }
             TaskIcon.Deadline  ->
             {
-                holder.subType.text = context.getString(R.string.app_deadline)
-                holder.subName.text =
-                    (DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(item.deadline))
-                        .replace("T", " ")
+                bindData(holder, item.getTag(), item.deadline)
             }
             else               ->
             {
@@ -102,15 +98,14 @@ class TaskListAdapter(private val data: List<Task>) :
 
     override fun getItemCount(): Int
     {
-        Log.d(TAG, "getItemCount, checked returning ${data.size}")
         return data.size
     }
 
-    private fun bindData(item: Task, holder: ViewHolder)
+    private fun bindData(holder: ViewHolder, type: String, time: LocalDateTime?)
     {
-        holder.subType.text = context.getString(R.string.scheduled_start)
+        holder.subType.text = type
         holder.subName.text =
-            (DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(item.scheduledTime))
-                .replace("T", " ")
+            if (time != null) DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(time)
+            else ""
     }
 }

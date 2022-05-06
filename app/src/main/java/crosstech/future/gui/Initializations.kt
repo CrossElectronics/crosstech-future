@@ -1,5 +1,6 @@
 package crosstech.future.gui
 
+import android.util.Base64
 import android.util.Log
 import android.view.ContextThemeWrapper
 import androidx.core.view.forEach
@@ -9,6 +10,7 @@ import crosstech.future.R
 import crosstech.future.logics.models.Task
 import kotlinx.coroutines.newFixedThreadPoolContext
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.decodeFromByteArray
 import kotlinx.serialization.decodeFromHexString
 import kotlinx.serialization.protobuf.ProtoBuf
 import java.lang.Exception
@@ -69,17 +71,38 @@ class Initializations
             try
             {
                 val dummy =
-                    "03490a0a44756d6d79207461736b12166c6f72656d20697073756d206f6620746865206461" +
-                            "791a1d323032322d30352d30355432313a35373a32332e39323937373933303020012800300590" +
-                            "010a1444756d6d79205363686564756c6564205461736b121a4c6f72656d20697073756d206f66" +
-                            "20616e6f74686572206461791a1a323032322d30352d30355432313a35373a32332e3933303737" +
-                            "36200228003009380140014a1a323032322d30352d30355432313a35383a32332e393330373736" +
-                            "5a1a323032322d30352d30365432313a35373a32332e39333037373688010a11416e20496d706f" +
-                            "7274616e74205461736b12154e6565647320746f206164647265737320736f6f6e1a1a32303232" +
-                            "2d30352d30355432313a35383a32332e393330373736200228013009380140014a1a323032322d" +
-                            "30352d30355432313a35383a32332e3933303737365a1a323032322d30352d30365432313a3537" +
-                            "3a32332e393330373736"
-                return ProtoBuf.decodeFromHexString<T>(dummy)
+                    "EDAKDlBsYW5uZWQgbm9ybWFsEgZOb3JtYWwaEDIwMjItMDUtMDZUMDk6NTkgASgAMAU9ChFQbGFu" +
+                            "bmVkIGltcG9ydGFudBIQTm9ybWFsIGltcG9ydGFudBoQMjAyMi0wNS0wNlQxMDowMiAB" +
+                            "KAEwBTcKDlBsYW5uZWQgdXJnZW50Eg1Ob3JtYWwgdXJnZW50GhAyMDIyLTA1LTA2VDEw" +
+                            "OjAxIAIoADAFSwoYUGxhbm5lZCB1cmdlbnQgaW1wb3J0YW50EhdOb3JtYWwgdXJnZW50" +
+                            "IGltcG9ydGFudBoQMjAyMi0wNS0wNlQxMDowNCACKAEwBUgKEFNjaGVkdWxlZCBub3Jt" +
+                            "YWwSBk5vcm1hbBoQMjAyMi0wNS0wNlQwOTo1OSABKAAwBTgBQAFKEDIwMjItMDUtMDZU" +
+                            "MTA6MDhlChtTY2hlZHVsZWQgbm9ybWFsIEFwcHIuIERkbC4SBk5vcm1hbBoQMjAyMi0w" +
+                            "NS0wNlQwOTo1OSABKAAwBTgBQAFKEDIwMjItMDUtMDZUMTA6MDhaEDIwMjItMDUtMDdU" +
+                            "MTA6MDBfChVTY2hlZHVsZWQgbm9ybWFsIERkbC4SBk5vcm1hbBoQMjAyMi0wNS0wNlQw" +
+                            "OTo1OSABKAAwBTgBQAFKEDIwMjItMDUtMDZUMTA6MDhaEDIwMjItMDUtMDdUMTA6MDBV" +
+                            "ChNTY2hlZHVsZWQgaW1wb3J0YW50EhBOb3JtYWwgaW1wb3J0YW50GhAyMDIyLTA1LTA2" +
+                            "VDEwOjAyIAEoATAFOAFAAUoQMjAyMi0wNS0wNlQxMDowOWwKGFNjaGVkdWxlZCBpbXBv" +
+                            "cnRhbnQgRGRsLhIQTm9ybWFsIGltcG9ydGFudBoQMjAyMi0wNS0wNlQxMDowMiABKAEw" +
+                            "BTgBQAFKEDIwMjItMDUtMDZUMTA6MDlaEDIwMjItMDUtMDlUMTA6MDByCh5TY2hlZHVs" +
+                            "ZWQgaW1wb3J0YW50IEFwcHIuIERkbC4SEE5vcm1hbCBpbXBvcnRhbnQaEDIwMjItMDUt" +
+                            "MDZUMTA6MDIgASgBMAU4AUABShAyMDIyLTA1LTA2VDEwOjA5WhAyMDIyLTA1LTA3VDEw" +
+                            "OjAwYwoaU2NoZWR1bGVkIHVyZ2VudCBpbXBvcnRhbnQSF05vcm1hbCB1cmdlbnQgaW1w" +
+                            "b3J0YW50GhAyMDIyLTA1LTA2VDEwOjA0IAIoATAFOAFAAUoQMjAyMi0wNS0wNlQxMDox" +
+                            "MHMKGFNjaGVkdWxlZCBVL0kgQXBwci4gRGRsLhIXTm9ybWFsIHVyZ2VudCBpbXBvcnRh" +
+                            "bnQaEDIwMjItMDUtMDZUMTA6MDQgAigBMAU4AUABShAyMDIyLTA1LTA2VDEwOjEwWhAy" +
+                            "MDIyLTA1LTA3VDEwOjAwbQoSU2NoZWR1bGVkIFUvSSBEZGwuEhdOb3JtYWwgdXJnZW50" +
+                            "IGltcG9ydGFudBoQMjAyMi0wNS0wNlQxMDowNCACKAEwBTgBQAFKEDIwMjItMDUtMDZU" +
+                            "MTA6MTBaEDIwMjItMDUtMDlUMTA6MDBPChBTY2hlZHVsZWQgdXJnZW50Eg1Ob3JtYWwg" +
+                            "dXJnZW50GhAyMDIyLTA1LTA2VDEwOjAxIAIoADAFOAFAAUoQMjAyMi0wNS0wNlQxMDow" +
+                            "OWwKG1NjaGVkdWxlZCB1cmdlbnQgQXBwci4gRGRsLhINTm9ybWFsIHVyZ2VudBoQMjAy" +
+                            "Mi0wNS0wNlQxMDowMSACKAAwBTgBQAFKEDIwMjItMDUtMDZUMTA6MDlaEDIwMjItMDUt" +
+                            "MDdUMTA6MDBmChVTY2hlZHVsZWQgdXJnZW50IERkbC4SDU5vcm1hbCB1cmdlbnQaEDIw" +
+                            "MjItMDUtMDZUMTA6MDEgAigAMAU4AUABShAyMDIyLTA1LTA2VDEwOjA5WhAyMDIyLTA1" +
+                            "LTA5VDEwOjAw"
+                val byteArray = java.util.Base64.getDecoder().decode(dummy)
+                return ProtoBuf.decodeFromByteArray(byteArray)
+                //return ProtoBuf.decodeFromHexString<T>(dummy)
             } catch (e: Exception)
             {
                 return null
