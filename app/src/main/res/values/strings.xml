@@ -31,4 +31,9 @@
     <string name="set_a_deadline">Set a deadline</string>
     <string name="deadline_date">Deadline date</string>
     <string name="remind_me_of_schedule_or_deadline">Remind me of schedule (and deadline)</string>
+    <string name="invalid_time_planned_creation">Planned time is before creation time</string>
+    <string name="at_around">At around...</string>
+    <string name="plan_to_do">Planned to do this on...</string>
+    <string name="deadline_on">Deadline is on...</string>
+    <string name="invalid_time_ddl_scheduled">Deadline is before scheduled time</string>
 </resources>

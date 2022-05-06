@@ -29,7 +29,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/name" />
+                    android:hint="@string/name"
+                    android:id="@+id/nameEditText" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -42,7 +43,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/description" />
+                    android:hint="@string/description"
+                    android:id="@+id/descEditText" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
@@ -64,7 +66,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
-                        android:hint="@string/date" />
+                        android:hint="@string/date"
+                        android:id="@+id/creationDateText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -78,7 +81,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
-                        android:hint="@string/time" />
+                        android:hint="@string/time"
+                        android:id="@+id/creationTimeText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -90,7 +94,8 @@
                 android:fontFamily="@font/roboto_mono"
                 android:textColor="@color/primaryLightColor"
                 android:textSize="@dimen/hash_text"
-                tools:text="#9a3e0bfa61..." />
+                tools:text="#9a3e0bfa61..."
+                android:id="@+id/taskEditHashText" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -114,7 +119,8 @@
                     android:value="2"
                     android:valueFrom="1"
                     android:valueTo="3"
-                    app:trackHeight="20dp" />
+                    app:trackHeight="20dp"
+                    android:id="@+id/urgencySlider" />
 
             </LinearLayout>
 
@@ -139,19 +145,23 @@
                     android:value="5"
                     android:valueFrom="0"
                     android:valueTo="10"
-                    app:trackHeight="20dp" />
+                    android:stepSize="1"
+                    app:trackHeight="20dp"
+                    android:id="@+id/difficultySlider" />
 
             </LinearLayout>
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/mark_as_important" />
+                android:text="@string/mark_as_important"
+                android:id="@+id/importanceSw" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/also_schedule_this_task" />
+                android:text="@string/also_schedule_this_task"
+                android:id="@+id/scheduleSw" />
         </LinearLayout>
 
         <LinearLayout
@@ -179,7 +189,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
-                        android:hint="@string/planned_date" />
+                        android:hint="@string/planned_date"
+                        android:id="@+id/plannedDateText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -193,7 +204,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
-                        android:hint="@string/time" />
+                        android:hint="@string/time"
+                        android:id="@+id/plannedTimeText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -201,14 +213,16 @@
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/set_a_deadline" />
+                android:text="@string/set_a_deadline"
+                android:id="@+id/deadlineSw" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="4dp"
                 android:baselineAligned="false"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/deadlineLayout">
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -222,7 +236,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
-                        android:hint="@string/deadline_date" />
+                        android:hint="@string/deadline_date"
+                        android:id="@+id/deadlineDateText" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -236,7 +251,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
-                        android:hint="@string/time" />
+                        android:hint="@string/time"
+                        android:id="@+id/deadlineTimeText" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
