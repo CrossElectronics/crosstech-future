@@ -18,7 +18,7 @@ data class Task(
     var urgency: Urgency,
     var isImportant: Boolean,
     var estDifficulty: Int,
-    private var status: TaskStatus = TaskStatus.Planned,
+    var status: TaskStatus = TaskStatus.Planned,
     var iconEnum: TaskIcon = TaskIcon.Planned
 )
 {

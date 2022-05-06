@@ -68,7 +68,7 @@
                     android:layout_marginEnd="4dp"
                     android:textSize="12sp"
                     tools:text="Scheduled Start"
-                    android:textColor="@color/tabSelectedColor" />
+                    android:textColor="@color/secondaryLightColor" />
 
                 <TextView
                     android:id="@+id/subtitleText"
