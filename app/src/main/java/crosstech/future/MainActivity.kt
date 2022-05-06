@@ -32,6 +32,6 @@ class MainActivity : AppCompatActivity()
         Initializations.setupNavController(navController, navigationBar)
         // loads data
         global = applicationContext as Global
-        global.tasks = Initializations.loadData()
+        global.tasks = Initializations.loadData() ?: mutableListOf()
     }
 }

@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import crosstech.future.R
 import crosstech.future.logics.models.Task
+import kotlinx.coroutines.newFixedThreadPoolContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromHexString
 import kotlinx.serialization.protobuf.ProtoBuf
@@ -62,21 +63,27 @@ class Initializations
         }
 
         @OptIn(ExperimentalSerializationApi::class)
-        inline fun <reified T> loadData(): T
+        inline fun <reified T> loadData(): T?
         {
             // TODO: Actually load from disk
-            val dummy =
-                "03490a0a44756d6d79207461736b12166c6f72656d20697073756d206f6620746865206461" +
-                        "791a1d323032322d30352d30355432313a35373a32332e39323937373933303020012800300590" +
-                        "010a1444756d6d79205363686564756c6564205461736b121a4c6f72656d20697073756d206f66" +
-                        "20616e6f74686572206461791a1a323032322d30352d30355432313a35373a32332e3933303737" +
-                        "36200228003009380140014a1a323032322d30352d30355432313a35383a32332e393330373736" +
-                        "5a1a323032322d30352d30365432313a35373a32332e39333037373688010a11416e20496d706f" +
-                        "7274616e74205461736b12154e6565647320746f206164647265737320736f6f6e1a1a32303232" +
-                        "2d30352d30355432313a35383a32332e393330373736200228013009380140014a1a323032322d" +
-                        "30352d30355432313a35383a32332e3933303737365a1a323032322d30352d30365432313a3537" +
-                        "3a32332e393330373736"
-            return ProtoBuf.decodeFromHexString<T>(dummy)
+            try
+            {
+                val dummy =
+                    "03490a0a44756d6d79207461736b12166c6f72656d20697073756d206f6620746865206461" +
+                            "791a1d323032322d30352d30355432313a35373a32332e39323937373933303020012800300590" +
+                            "010a1444756d6d79205363686564756c6564205461736b121a4c6f72656d20697073756d206f66" +
+                            "20616e6f74686572206461791a1a323032322d30352d30355432313a35373a32332e3933303737" +
+                            "36200228003009380140014a1a323032322d30352d30355432313a35383a32332e393330373736" +
+                            "5a1a323032322d30352d30365432313a35373a32332e39333037373688010a11416e20496d706f" +
+                            "7274616e74205461736b12154e6565647320746f206164647265737320736f6f6e1a1a32303232" +
+                            "2d30352d30355432313a35383a32332e393330373736200228013009380140014a1a323032322d" +
+                            "30352d30355432313a35383a32332e3933303737365a1a323032322d30352d30365432313a3537" +
+                            "3a32332e393330373736"
+                return ProtoBuf.decodeFromHexString<T>(dummy)
+            } catch (e: Exception)
+            {
+                return null
+            }
         }
     }
 }

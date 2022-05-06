@@ -12,6 +12,7 @@ import crosstech.future.Global
 import crosstech.future.R
 import crosstech.future.databinding.OpenTaskFragmentBinding
 import crosstech.future.logics.enums.TaskStatus
+import crosstech.future.logics.managers.TasksManager
 import crosstech.future.logics.models.TaskListAdapter
 
 // TODO: Rename parameter arguments, choose names that match
@@ -58,8 +59,7 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
 
         global = activity?.applicationContext as Global
 
-        val tasks =
-            global.tasks.filter { it.status == TaskStatus.Planned || it.status == TaskStatus.Scheduled }
+        val tasks = TasksManager.filterOpenTasksAndSort(global.tasks)
         binding.plannedCount.text = tasks.count { it.status == TaskStatus.Planned }.toString()
         binding.scheduledCount.text = tasks.count { it.status == TaskStatus.Scheduled }.toString()
         val adapter = TaskListAdapter(tasks)
