@@ -2,13 +2,14 @@ package crosstech.future
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import crosstech.future.databinding.ActivityMainBinding
 import crosstech.future.gui.Initializations
-import crosstech.future.logics.models.TaskListAdapter
+import crosstech.future.gui.TaskEditFragment
 
 class MainActivity : AppCompatActivity()
 {
@@ -33,5 +34,18 @@ class MainActivity : AppCompatActivity()
         // loads data
         global = applicationContext as Global
         global.tasks = Initializations.loadData() ?: mutableListOf()
+    }
+
+    override fun onBackPressed()
+    {
+        val frag = supportFragmentManager.findFragmentById(R.id.content)
+        if (frag is TaskEditFragment)
+        {
+            frag.dismiss()
+        }
+        else
+        {
+            super.onBackPressed()
+        }
     }
 }

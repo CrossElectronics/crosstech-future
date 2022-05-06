@@ -2,12 +2,11 @@ package crosstech.future.gui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.datepicker.CalendarConstraints
@@ -17,8 +16,10 @@ import com.google.android.material.slider.Slider
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat.CLOCK_24H
+import crosstech.future.Global
 import crosstech.future.R
 import crosstech.future.databinding.TaskEditFragmentBinding
+import crosstech.future.logics.enums.TaskStatus
 import crosstech.future.logics.enums.Urgency
 import crosstech.future.logics.models.Task
 import java.time.Instant
@@ -29,27 +30,28 @@ import java.util.*
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "parcel"
-private const val ARG_PARAM2 = "param2"
+private const val ARG_PARAM2 = "mode"
 
 /**
  * A simple [Fragment] subclass.
  * Use the [TaskEditFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TaskEditFragment : DialogFragment()
+class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
 {
     private lateinit var binding: TaskEditFragmentBinding
 
     // TODO: Rename and change types of parameters
     private var task: Task? = null
-    private var param2: String? = null
+    private var mode: Boolean? = null
+    private lateinit var global: Global
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         arguments?.let {
             task = it.getParcelable(ARG_PARAM1) as Task?
-            param2 = it.getString(ARG_PARAM2)
+            mode = it.getBoolean(ARG_PARAM2)
         }
     }
 
@@ -59,13 +61,25 @@ class TaskEditFragment : DialogFragment()
     ): View
     {
         binding = TaskEditFragmentBinding.inflate(layoutInflater)
+        setHasOptionsMenu(true)
+        global = requireActivity().applicationContext as Global
+        val toolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
+        toolbar.setOnMenuItemClickListener(this)
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater)
+    {
+        inflater.inflate(R.menu.task_edit_toolbar, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
+        val actionBar = requireActivity().actionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
         super.onViewCreated(view, savedInstanceState)
         val calRestriction =
             CalendarConstraints.Builder().setValidator(DateValidatorPointForward.now())
@@ -175,11 +189,13 @@ class TaskEditFragment : DialogFragment()
                 if (b)
                 {
                     task.scheduledTime = parseTime(plannedDateText, plannedTimeText)
+                    task.status = TaskStatus.Scheduled
                 }
                 else
                 {
                     task.scheduledTime = null
                     task.deadline = null
+                    task.status = TaskStatus.Planned
                 }
             }
             plannedDateText.setOnClickListener {
@@ -328,5 +344,50 @@ class TaskEditFragment : DialogFragment()
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean
+    {
+        Log.i("DEBUG >====> ", "MENU item clicked!")
+        if (task == null) return true
+        val task = task as Task
+        when (item?.itemId)
+        {
+            R.id.save ->
+            {
+                if (task.name == "")
+                {
+                    Toast.makeText(context, getString(R.string.invalid_name), Toast.LENGTH_LONG)
+                        .show()
+                    return true
+                }
+                if (task.scheduledTime != null && task.scheduledTime!! <= task.creationTime)
+                {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.invalid_time_planned_creation),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    return true
+                }
+                if (task.deadline != null && task.scheduledTime != null && task.deadline!! <= task.scheduledTime)
+                {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.invalid_time_ddl_scheduled),
+                        Toast.LENGTH_LONG
+                    ).show()
+                    return true
+                }
+                if (mode == true)
+                {
+                    global.tasks.add(task)
+                    // TODO: Make RecyclerView refresh itself
+                    dismiss()
+                }
+                // TODO: Modification
+            }
+        }
+        return true
     }
 }

@@ -3,6 +3,7 @@ package crosstech.future.gui
 import android.util.Base64
 import android.util.Log
 import android.view.ContextThemeWrapper
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.forEach
 import androidx.navigation.NavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -30,19 +31,15 @@ class Initializations
                     // TODO: Add activity switching to the placeholder
                     R.id.dashboardFragment ->
                     {
-
                     }
                     R.id.tasksFragment     ->
                     {
-
                     }
                     R.id.milestoneFragment ->
                     {
-
                     }
                     R.id.statsFragment     ->
                     {
-
                     }
                 }
             }

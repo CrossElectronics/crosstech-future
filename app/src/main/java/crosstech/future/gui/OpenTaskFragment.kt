@@ -88,6 +88,7 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
             val newTaskFrag = TaskEditFragment()
             val bundle = Bundle()
             bundle.putParcelable("parcel", Task())
+            bundle.putBoolean("mode", true)
             newTaskFrag.arguments = bundle
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
