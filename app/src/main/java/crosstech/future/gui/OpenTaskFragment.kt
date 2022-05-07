@@ -1,5 +1,6 @@
 package crosstech.future.gui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,6 +35,7 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
     private var param2: String? = null
     private lateinit var binding: OpenTaskFragmentBinding
     private lateinit var global: Global
+    private lateinit var adapter: TaskListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -61,11 +63,9 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
         super.onViewCreated(view, savedInstanceState)
 
         global = activity?.applicationContext as Global
-
         val tasks = TasksManager.filterOpenTasksAndSort(global.tasks)
-        binding.plannedCount.text = tasks.count { it.status == TaskStatus.Planned }.toString()
-        binding.scheduledCount.text = tasks.count { it.status == TaskStatus.Scheduled }.toString()
-        val adapter = TaskListAdapter(tasks)
+        updateHeader(tasks)
+        adapter = TaskListAdapter(tasks)
         val taskRecycler = binding.taskRecycler
         val fab = binding.addTaskFab
         taskRecycler.adapter = adapter
@@ -94,6 +94,19 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .add(R.id.content, newTaskFrag).addToBackStack(null).commit()
         }
+    }
+
+    private fun updateHeader(tasks: MutableList<Task>)
+    {
+        binding.plannedCount.text = tasks.count { it.status == TaskStatus.Planned }.toString()
+        binding.scheduledCount.text = tasks.count { it.status == TaskStatus.Scheduled }.toString()
+    }
+
+    fun notifyUpdate()
+    {
+        val tasks = TasksManager.filterOpenTasksAndSort(global.tasks)
+        adapter differAndAddFrom tasks
+        updateHeader(tasks)
     }
 
     companion object

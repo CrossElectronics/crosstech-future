@@ -385,6 +385,11 @@ class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
                     // TODO: Make RecyclerView refresh itself
                     dismiss()
                 }
+
+                val frag =
+                    requireActivity().supportFragmentManager.findFragmentById(R.id.taskInnerFrag)
+                if (frag is OpenTaskFragment)
+                    frag.notifyUpdate()
                 // TODO: Modification
             }
         }
