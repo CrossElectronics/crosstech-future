@@ -18,7 +18,7 @@ import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class TaskListAdapter(private val data: List<Task>) :
+class TaskListAdapter(private var data: MutableList<Task>) :
     RecyclerView.Adapter<TaskListAdapter.ViewHolder>()
 {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
@@ -94,6 +94,19 @@ class TaskListAdapter(private val data: List<Task>) :
             else               ->
             {
                 throw IllegalArgumentException("This icon should not be here: ${item.name}")
+            }
+        }
+    }
+
+    infix fun differAndAddFrom(newData: List<Task>)
+    {
+        if (newData.size <= data.size || newData == data) return
+        for (i in data.indices)
+        {
+            if (newData[i] != data[i])
+            {
+                data.add(i, newData[i])
+                notifyItemInserted(i)
             }
         }
     }
