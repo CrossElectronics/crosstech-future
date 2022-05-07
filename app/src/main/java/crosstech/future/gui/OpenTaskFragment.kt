@@ -1,6 +1,6 @@
 package crosstech.future.gui
 
-import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
@@ -15,7 +16,7 @@ import crosstech.future.Global
 import crosstech.future.R
 import crosstech.future.databinding.OpenTaskFragmentBinding
 import crosstech.future.logics.enums.TaskStatus
-import crosstech.future.logics.managers.TasksManager
+import crosstech.future.logics.managers.*
 import crosstech.future.logics.models.Task
 import crosstech.future.logics.models.TaskListAdapter
 
@@ -84,6 +85,12 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
                     if (dy < 0) fab.show()
                 }
             })
+
+        val swipeManager = ItemTouchHelper(LeftSwipeManager(view, taskRecycler, global))
+        swipeManager.attachToRecyclerView(taskRecycler)
+
+        //val itemTouchHelper = ItemTouchHelper(SwipeManager())
+        //itemTouchHelper.attachToRecyclerView(taskRecycler)
         fab.setOnClickListener {
             val newTaskFrag = TaskEditFragment()
             val bundle = Bundle()
