@@ -111,6 +111,14 @@ class TaskListAdapter(private var data: MutableList<Task>) :
         }
     }
 
+    infix fun removeAt(index: Int)
+    {
+        data.removeAt(index)
+        notifyItemRemoved(index)
+    }
+
+    fun retrieveData(): MutableList<Task> = data.toMutableList()
+
     override fun getItemCount(): Int
     {
         return data.size
