@@ -48,16 +48,21 @@ class TaskListAdapter(private var data: MutableList<Task>) :
         holder.taskIcon.setImageResource(
             when (item.iconEnum)
             {
+                TaskIcon.Completed -> R.drawable.task_complete
+                TaskIcon.Cancelled -> R.drawable.task_cancelled
                 TaskIcon.Planned   -> R.drawable.circle_planned
                 TaskIcon.Scheduled -> R.drawable.task_scheduled
                 TaskIcon.Deadline  -> R.drawable.deadline
                 TaskIcon.Important -> R.drawable.task_important
-                TaskIcon.Completed -> R.drawable.task_complete
-                TaskIcon.Cancelled -> R.drawable.task_cancelled
             }
         )
         holder.taskName.text = item.name
         holder.hashText.text = item.getSHA1().substring(0 .. 6)
+        if (item.iconEnum == TaskIcon.Completed)
+        {
+            bindData(holder, "Completed", item.completedTime)
+            return
+        }
         when (item.iconEnum)
         {
             TaskIcon.Planned   ->

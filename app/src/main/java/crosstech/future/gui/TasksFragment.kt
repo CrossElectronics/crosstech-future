@@ -26,7 +26,7 @@ class TasksFragment : Fragment(R.layout.tasks_fragment)
         tabBar = binding.tabLayout
 
         val openTaskFragment = OpenTaskFragment()
-        val closedTaskFragment = ClosedTaskFragment()
+        val closedTaskFragment = CompletedTaskFragment()
 
         tabBar.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener
