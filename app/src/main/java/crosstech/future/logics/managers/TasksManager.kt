@@ -16,7 +16,7 @@ class TasksManager
             val filtered =
                 tasks.filter { it.status == TaskStatus.Planned || it.status == TaskStatus.Scheduled }
             // adjust icons
-            val important = tasks.filter { it.isImportant }
+            val important = filtered.filter { it.isImportant }
             for (item in important) item.iconEnum = TaskIcon.Important
             val deadlineApproaching =
                 filtered.filter { it.isDeadlineApproaching() }
@@ -32,6 +32,14 @@ class TasksManager
                     }
                     .thenBy { it.scheduledTime ?: LocalDateTime.MAX })
             return sortedList.toMutableList()
+        }
+
+        fun filterCompletedTaskAndSort(tasks: List<Task>): MutableList<Task>
+        {
+            return tasks
+                .filter { it.status == TaskStatus.Completed }
+                .sortedByDescending { it.completedTime }
+                .toMutableList()
         }
     }
 }

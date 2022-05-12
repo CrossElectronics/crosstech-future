@@ -10,6 +10,7 @@ import crosstech.future.logics.enums.TaskIcon
 import crosstech.future.logics.enums.TaskStatus
 import crosstech.future.logics.models.Task
 import crosstech.future.logics.models.TaskListAdapter
+import java.time.LocalDateTime
 
 class RightSwipeManager(
     val view: View,
@@ -27,13 +28,12 @@ class RightSwipeManager(
         val removed = adapter.retrieveData()[pos]
         val origStatus = removed.status
         val origIcon = removed.iconEnum
-        removed.status = TaskStatus.Completed
-        removed.iconEnum = TaskIcon.Completed
+        // TODO: remove efficiency and difficulty from task
+        removed.complete(LocalDateTime.now(), 5)
         adapter removeAt pos
         Snackbar.make(recyclerView, "Task completed: ${removed.name}", Snackbar.LENGTH_LONG)
             .setAction("Undo") {
-                removed.status = origStatus
-                removed.iconEnum = origIcon
+                removed.reopen(origStatus, origIcon)
                 val i = adapter differAndAddFrom TasksManager.filterOpenTasksAndSort(global.tasks)
                 if (i != null) recyclerView.scrollToPosition(i)
             }

@@ -153,8 +153,8 @@ data class Task(
      */
     fun complete(completedTime: LocalDateTime, efficiency: Int): Task
     {
-        if (status != TaskStatus.Scheduled || status != TaskStatus.Planned)
-            throw IllegalStateException("Cannot complete unscheduled or unplanned state")
+        if (status != TaskStatus.Scheduled && status != TaskStatus.Planned)
+            throw IllegalStateException("Cannot complete this state ($status)")
         if (efficiency !in 1 .. 5)
             throw IllegalArgumentException("Efficiency must be in range of 1..5")
         status = TaskStatus.Completed
@@ -185,7 +185,7 @@ data class Task(
      * Reopens already completed task back into planned state
      * @throws IllegalStateException if status is not completed
      */
-    fun reopen(): Task
+    fun reopenAnew(): Task
     {
         if (status != TaskStatus.Completed)
             throw IllegalStateException("Cannot reopen uncompleted task")
@@ -193,6 +193,15 @@ data class Task(
         deadline = null
         scheduledTime = null
         iconEnum = TaskIcon.Planned
+        completedTime = null
+        return this
+    }
+
+    fun reopen(status: TaskStatus, icon: TaskIcon): Task
+    {
+        this.status = status
+        this.iconEnum = icon
+        completedTime = null
         return this
     }
 
