@@ -109,7 +109,7 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
             global.tasks.count { it.status == TaskStatus.Planned }.toString()
         binding.scheduledCount.text =
             global.tasks.count { it.status == TaskStatus.Scheduled }.toString()
-        if (update) global.tasks.saveData(Global.TASKS_FILE, requireContext())
+        if (update) global.tasks.saveData(Global.TASKS_FILE, global.context)
     }
 
     fun notifyUpdate()
@@ -118,7 +118,7 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
         val i = adapter differAndAddFrom tasks
         if (i != null) taskRecycler.scrollToPosition(i)
         updateHeader()
-        global.tasks.saveData(Global.TASKS_FILE, requireContext())
+        global.tasks.saveData(Global.TASKS_FILE, global.context)
     }
 
     companion object
