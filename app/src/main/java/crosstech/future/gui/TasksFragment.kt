@@ -27,6 +27,7 @@ class TasksFragment : Fragment(R.layout.tasks_fragment)
 
         val openTaskFragment = OpenTaskFragment()
         val closedTaskFragment = CompletedTaskFragment()
+        val archivedFragment = ArchivedFragment()
 
         tabBar.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener
@@ -46,7 +47,10 @@ class TasksFragment : Fragment(R.layout.tasks_fragment)
                                 ?.replace(R.id.taskInnerFrag, closedTaskFragment)
                                 ?.commit()
                         2 ->
-                            TODO("Archived tab")
+                            activity?.supportFragmentManager
+                                ?.beginTransaction()
+                                ?.replace(R.id.taskInnerFrag, archivedFragment)
+                                ?.commit()
                     }
                 }
 

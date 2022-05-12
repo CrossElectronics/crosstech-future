@@ -80,6 +80,7 @@ data class Task(
      */
     fun getTag(): String
     {
+        // TODO: Localisation
         val result = when
         {
             isDeadlineApproaching()                   -> "Deadline approaching"
@@ -206,14 +207,20 @@ data class Task(
     }
 
     fun archive(): ArchivedTask =
-        if (status == TaskStatus.Completed) ArchivedTask(
+        ArchivedTask(
             name,
             description,
             creationTime,
             completedTime!!,
-            getSHA1()
+            iconEnum
         )
-        else throw IllegalStateException("Cannot archive uncompleted task")
+
+    fun cancel(time: LocalDateTime): Task
+    {
+        iconEnum = TaskIcon.Cancelled
+        completedTime = time
+        return this
+    }
 
     /**
      * Calculates message digestion of current task regardless of further status change
