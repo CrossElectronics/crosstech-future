@@ -30,7 +30,8 @@ class RightSwipeManager(val view: View, val recyclerView: RecyclerView, val glob
             .setAction("Undo") {
                 removed.status = origStatus
                 removed.iconEnum = origIcon
-                adapter differAndAddFrom TasksManager.filterOpenTasksAndSort(global.tasks)
+                val i = adapter differAndAddFrom TasksManager.filterOpenTasksAndSort(global.tasks)
+                if (i != null) recyclerView.scrollToPosition(i)
             }
             .show()
     }

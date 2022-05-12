@@ -98,17 +98,19 @@ class TaskListAdapter(private var data: MutableList<Task>) :
         }
     }
 
-    infix fun differAndAddFrom(newData: List<Task>)
+    infix fun differAndAddFrom(newData: List<Task>): Int?
     {
-        if (newData.size <= data.size || newData == data) return
-        for (i in data.indices)
+        if (newData.size <= data.size || newData == data) return null
+        for (i in newData.indices)
         {
-            if (newData[i] != data[i])
+            if (i >= data.size || newData[i] != data[i])
             {
                 data.add(i, newData[i])
                 notifyItemInserted(i)
+                return i
             }
         }
+        return null
     }
 
     infix fun removeAt(index: Int)

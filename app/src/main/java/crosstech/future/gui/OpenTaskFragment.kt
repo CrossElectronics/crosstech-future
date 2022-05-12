@@ -35,6 +35,7 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
     private lateinit var binding: OpenTaskFragmentBinding
     private lateinit var global: Global
     private lateinit var adapter: TaskListAdapter
+    private lateinit var taskRecycler: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -65,7 +66,7 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
         val tasks = TasksManager.filterOpenTasksAndSort(global.tasks)
         updateHeader(tasks)
         adapter = TaskListAdapter(tasks)
-        val taskRecycler = binding.taskRecycler
+        taskRecycler = binding.taskRecycler
         val fab = binding.addTaskFab
         taskRecycler.adapter = adapter
         taskRecycler.layoutManager = LinearLayoutManager(activity)
@@ -110,7 +111,8 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
     fun notifyUpdate()
     {
         val tasks = TasksManager.filterOpenTasksAndSort(global.tasks)
-        adapter differAndAddFrom tasks
+        val i = adapter differAndAddFrom tasks
+        if (i != null) taskRecycler.scrollToPosition(i)
         updateHeader(tasks)
     }
 
