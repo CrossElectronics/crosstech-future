@@ -74,7 +74,7 @@ class CompletedTaskFragment : Fragment(R.layout.completed_task_fragment)
     {
         binding.completedCount.text =
             global.tasks.count { it.status == TaskStatus.Completed }.toString()
-        if (update) global.tasks.saveData(Global.TASKS_FILE, requireContext())
+        if (update) global.tasks.saveData(Global.TASKS_FILE, global.context)
     }
 
     companion object
