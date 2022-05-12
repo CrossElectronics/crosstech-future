@@ -9,7 +9,11 @@ import crosstech.future.Global
 import crosstech.future.logics.models.Task
 import crosstech.future.logics.models.TaskListAdapter
 
-class LeftSwipeManager(val view: View, val recyclerView: RecyclerView, val global: Global) :
+class LeftSwipeManager(
+    val view: View,
+    private val recyclerView: RecyclerView,
+    private val global: Global
+) :
     SimpleCallback(0, LEFT)
 {
     override fun onMove(r: RecyclerView, v: ViewHolder, t: ViewHolder) = false
