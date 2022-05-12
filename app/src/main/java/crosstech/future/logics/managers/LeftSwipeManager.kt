@@ -6,13 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.snackbar.Snackbar
 import crosstech.future.Global
+import crosstech.future.gui.OpenTaskFragment
 import crosstech.future.logics.models.Task
 import crosstech.future.logics.models.TaskListAdapter
 
 class LeftSwipeManager(
     val view: View,
     private val recyclerView: RecyclerView,
-    private val global: Global
+    private val global: Global,
+    private val frag: OpenTaskFragment
 ) :
     SimpleCallback(0, LEFT)
 {
@@ -25,6 +27,7 @@ class LeftSwipeManager(
         val removed = adapter.retrieveData()[pos]
         adapter removeAt pos
         global.tasks = adapter.retrieveData()
+        frag.updateHeader()
         Snackbar.make(recyclerView, "Task cancelled: ${removed.name}", Snackbar.LENGTH_LONG)
             .setAction("Undo") {
                 val list = adapter.retrieveData()
@@ -32,6 +35,7 @@ class LeftSwipeManager(
                 val i = adapter differAndAddFrom TasksManager.filterOpenTasksAndSort(list)
                 if (i != null) recyclerView.scrollToPosition(i)
                 global.tasks = adapter.retrieveData()
+                frag.updateHeader()
             }
             .show()
     }
