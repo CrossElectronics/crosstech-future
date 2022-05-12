@@ -1,12 +1,10 @@
 package crosstech.future.gui
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -86,11 +84,11 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
                 }
             })
 
-        val swipeManager = ItemTouchHelper(LeftSwipeManager(view, taskRecycler, global))
-        swipeManager.attachToRecyclerView(taskRecycler)
+        val leftSwpMng = ItemTouchHelper(LeftSwipeManager(view, taskRecycler, global))
+        leftSwpMng.attachToRecyclerView(taskRecycler)
+        val rightSwpMng = ItemTouchHelper(RightSwipeManager(view, taskRecycler, global))
+        rightSwpMng.attachToRecyclerView(taskRecycler)
 
-        //val itemTouchHelper = ItemTouchHelper(SwipeManager())
-        //itemTouchHelper.attachToRecyclerView(taskRecycler)
         fab.setOnClickListener {
             val newTaskFrag = TaskEditFragment()
             val bundle = Bundle()
