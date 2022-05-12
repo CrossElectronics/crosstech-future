@@ -26,7 +26,7 @@ class LeftSwipeManager(
         val adapter = recyclerView.adapter as TaskListAdapter
         val removed = adapter.retrieveData()[pos]
         adapter removeAt pos
-        global.tasks = adapter.retrieveData()
+        global.tasks.remove(removed)
         frag.updateHeader()
         Snackbar.make(recyclerView, "Task cancelled: ${removed.name}", Snackbar.LENGTH_LONG)
             .setAction("Undo") {
@@ -34,7 +34,7 @@ class LeftSwipeManager(
                 list.add(removed)
                 val i = adapter differAndAddFrom TasksManager.filterOpenTasksAndSort(list)
                 if (i != null) recyclerView.scrollToPosition(i)
-                global.tasks = adapter.retrieveData()
+                global.tasks.add(removed)
                 frag.updateHeader()
             }
             .show()
