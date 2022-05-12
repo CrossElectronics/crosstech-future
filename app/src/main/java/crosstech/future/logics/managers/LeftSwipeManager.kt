@@ -25,7 +25,8 @@ class LeftSwipeManager(val view: View, val recyclerView: RecyclerView, val globa
             .setAction("Undo") {
                 val list = adapter.retrieveData()
                 list.add(removed)
-                adapter differAndAddFrom TasksManager.filterOpenTasksAndSort(list)
+                val i = adapter differAndAddFrom TasksManager.filterOpenTasksAndSort(list)
+                if (i != null) recyclerView.scrollToPosition(i)
                 global.tasks = adapter.retrieveData()
             }
             .show()
