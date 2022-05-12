@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.snackbar.Snackbar
 import crosstech.future.Global
+import crosstech.future.gui.OpenTaskFragment
 import crosstech.future.logics.enums.TaskIcon
 import crosstech.future.logics.enums.TaskStatus
 import crosstech.future.logics.models.Task
@@ -15,7 +16,8 @@ import java.time.LocalDateTime
 class RightSwipeManager(
     val view: View,
     private val recyclerView: RecyclerView,
-    private val global: Global
+    private val global: Global,
+    private val frag: OpenTaskFragment
 ) :
     SimpleCallback(0, RIGHT)
 {
@@ -31,11 +33,13 @@ class RightSwipeManager(
         // TODO: remove efficiency and difficulty from task
         removed.complete(LocalDateTime.now(), 5)
         adapter removeAt pos
+        frag.updateHeader()
         Snackbar.make(recyclerView, "Task completed: ${removed.name}", Snackbar.LENGTH_LONG)
             .setAction("Undo") {
                 removed.reopen(origStatus, origIcon)
                 val i = adapter differAndAddFrom TasksManager.filterOpenTasksAndSort(global.tasks)
                 if (i != null) recyclerView.scrollToPosition(i)
+                frag.updateHeader()
             }
             .show()
     }

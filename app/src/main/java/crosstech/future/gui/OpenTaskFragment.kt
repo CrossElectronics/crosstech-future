@@ -64,7 +64,7 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
 
         global = activity?.applicationContext as Global
         val tasks = TasksManager.filterOpenTasksAndSort(global.tasks)
-        updateHeader(tasks)
+        updateHeader()
         adapter = TaskListAdapter(tasks)
         taskRecycler = binding.taskRecycler
         val fab = binding.addTaskFab
@@ -85,9 +85,9 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
                 }
             })
 
-        val leftSwpMng = ItemTouchHelper(LeftSwipeManager(view, taskRecycler, global))
+        val leftSwpMng = ItemTouchHelper(LeftSwipeManager(view, taskRecycler, global, this))
         leftSwpMng.attachToRecyclerView(taskRecycler)
-        val rightSwpMng = ItemTouchHelper(RightSwipeManager(view, taskRecycler, global))
+        val rightSwpMng = ItemTouchHelper(RightSwipeManager(view, taskRecycler, global, this))
         rightSwpMng.attachToRecyclerView(taskRecycler)
 
         fab.setOnClickListener {
@@ -102,10 +102,12 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
         }
     }
 
-    private fun updateHeader(tasks: MutableList<Task>)
+    fun updateHeader()
     {
-        binding.plannedCount.text = tasks.count { it.status == TaskStatus.Planned }.toString()
-        binding.scheduledCount.text = tasks.count { it.status == TaskStatus.Scheduled }.toString()
+        binding.plannedCount.text =
+            global.tasks.count { it.status == TaskStatus.Planned }.toString()
+        binding.scheduledCount.text =
+            global.tasks.count { it.status == TaskStatus.Scheduled }.toString()
     }
 
     fun notifyUpdate()
@@ -113,7 +115,7 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
         val tasks = TasksManager.filterOpenTasksAndSort(global.tasks)
         val i = adapter differAndAddFrom tasks
         if (i != null) taskRecycler.scrollToPosition(i)
-        updateHeader(tasks)
+        updateHeader()
     }
 
     companion object
