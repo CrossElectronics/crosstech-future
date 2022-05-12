@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import java.util.*
 
+// TODO: Clean up
 @SuppressLint("ClickableViewAccessibility")
 abstract class SwipeManagerDeprecated(context: Context, private val recyclerView: RecyclerView) :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT)

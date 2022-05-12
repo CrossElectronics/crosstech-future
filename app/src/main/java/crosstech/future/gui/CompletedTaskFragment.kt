@@ -11,11 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import crosstech.future.Global
 import crosstech.future.R
 import crosstech.future.databinding.CompletedTaskFragmentBinding
+import crosstech.future.gui.Initializations.Companion.saveData
 import crosstech.future.logics.enums.TaskStatus
-import crosstech.future.logics.managers.CompleteSwipeManager
 import crosstech.future.logics.managers.ReopenSwipeManager
 import crosstech.future.logics.managers.TasksManager
-import crosstech.future.logics.models.Task
 import crosstech.future.logics.models.TaskListAdapter
 
 // TODO: Rename parameter arguments, choose names that match
@@ -71,10 +70,11 @@ class CompletedTaskFragment : Fragment(R.layout.completed_task_fragment)
         reopenSwpMng.attachToRecyclerView(taskRecycler)
     }
 
-    fun updateHeader()
+    fun updateHeader(update: Boolean = false)
     {
         binding.completedCount.text =
             global.tasks.count { it.status == TaskStatus.Completed }.toString()
+        if (update) global.tasks.saveData(Global.TASKS_FILE, requireContext())
     }
 
     companion object

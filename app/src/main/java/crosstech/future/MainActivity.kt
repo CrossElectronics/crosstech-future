@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity()
         Initializations.setupNavController(navController, navigationBar)
         // loads data
         global = applicationContext as Global
-        global.tasks = Initializations.loadData() ?: mutableListOf()
+        global.tasks = Initializations.loadData(Global.TASKS_FILE, this) ?: mutableListOf()
     }
 
     override fun onBackPressed()
