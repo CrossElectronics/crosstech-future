@@ -85,9 +85,9 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
                 }
             })
 
-        val leftSwpMng = ItemTouchHelper(LeftSwipeManager(view, taskRecycler, global, this))
+        val leftSwpMng = ItemTouchHelper(CancelSwipeManager(view, taskRecycler, global, this))
         leftSwpMng.attachToRecyclerView(taskRecycler)
-        val rightSwpMng = ItemTouchHelper(RightSwipeManager(view, taskRecycler, global, this))
+        val rightSwpMng = ItemTouchHelper(CompleteSwipeManager(view, taskRecycler, global, this))
         rightSwpMng.attachToRecyclerView(taskRecycler)
 
         fab.setOnClickListener {
