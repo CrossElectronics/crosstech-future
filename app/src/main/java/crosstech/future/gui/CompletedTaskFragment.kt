@@ -5,11 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import crosstech.future.Global
 import crosstech.future.R
 import crosstech.future.databinding.CompletedTaskFragmentBinding
+import crosstech.future.logics.enums.TaskStatus
+import crosstech.future.logics.managers.CompleteSwipeManager
+import crosstech.future.logics.managers.ReopenSwipeManager
 import crosstech.future.logics.managers.TasksManager
 import crosstech.future.logics.models.Task
 import crosstech.future.logics.models.TaskListAdapter
@@ -58,15 +62,19 @@ class CompletedTaskFragment : Fragment(R.layout.completed_task_fragment)
     {
         super.onViewCreated(view, savedInstanceState)
         val tasks = TasksManager.filterCompletedTaskAndSort(global.tasks)
-        updateHeader(tasks)
+        updateHeader()
         adapter = TaskListAdapter(tasks)
         taskRecycler.adapter = adapter
         taskRecycler.layoutManager = LinearLayoutManager(activity)
+
+        val reopenSwpMng = ItemTouchHelper(ReopenSwipeManager(view, taskRecycler, global, this))
+        reopenSwpMng.attachToRecyclerView(taskRecycler)
     }
 
-    private fun updateHeader(tasks: MutableList<Task>)
+    fun updateHeader()
     {
-        binding.completedCount.text = tasks.size.toString()
+        binding.completedCount.text =
+            global.tasks.count { it.status == TaskStatus.Completed }.toString()
     }
 
     companion object

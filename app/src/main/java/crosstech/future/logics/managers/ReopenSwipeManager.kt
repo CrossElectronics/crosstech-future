@@ -6,15 +6,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.snackbar.Snackbar
 import crosstech.future.Global
-import crosstech.future.gui.OpenTaskFragment
-import crosstech.future.logics.models.Task
+import crosstech.future.gui.CompletedTaskFragment
 import crosstech.future.logics.models.TaskListAdapter
+import java.time.LocalDateTime
 
-class LeftSwipeManager(
+class ReopenSwipeManager(
     val view: View,
     private val recyclerView: RecyclerView,
     private val global: Global,
-    private val frag: OpenTaskFragment
+    private val frag: CompletedTaskFragment
 ) :
     SimpleCallback(0, LEFT)
 {
@@ -24,17 +24,17 @@ class LeftSwipeManager(
     {
         val pos = viewHolder.adapterPosition
         val adapter = recyclerView.adapter as TaskListAdapter
-        val removed = adapter.retrieveData()[pos]
+        val target = adapter.retrieveData()[pos]
+        val time = target.completedTime
+        target.reopenAnew()
         adapter removeAt pos
-        global.tasks.remove(removed)
         frag.updateHeader()
-        Snackbar.make(recyclerView, "Task cancelled: ${removed.name}", Snackbar.LENGTH_LONG)
+        Snackbar.make(recyclerView, "Task completed: ${target.name}", Snackbar.LENGTH_LONG)
             .setAction("Undo") {
-                val list = adapter.retrieveData()
-                list.add(removed)
-                val i = adapter differAndAddFrom TasksManager.filterOpenTasksAndSort(list)
+                target.complete(time ?: LocalDateTime.now(), 5)
+                val i =
+                    adapter differAndAddFrom TasksManager.filterCompletedTaskAndSort(global.tasks)
                 if (i != null) recyclerView.scrollToPosition(i)
-                global.tasks.add(removed)
                 frag.updateHeader()
             }
             .show()
