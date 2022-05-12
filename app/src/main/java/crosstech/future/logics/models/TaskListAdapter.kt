@@ -47,6 +47,7 @@ class TaskListAdapter(private var data: MutableList<Task>) :
         if (item.status == TaskStatus.Completed)
         {
             bindData(holder, "Completed", item.completedTime)
+            holder.taskIcon.setImageResource(R.drawable.task_complete)
             return
         }
         when (item.iconEnum)
