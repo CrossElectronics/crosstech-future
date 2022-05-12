@@ -17,7 +17,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [CompletedFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CompletedTaskFragment : Fragment()
+class ClosedTaskFragment : Fragment(R.layout.closed_task_fragment)
 {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -38,7 +38,7 @@ class CompletedTaskFragment : Fragment()
     ): View?
     {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.completed_task_fragment, container, false)
+        return inflater.inflate(R.layout.closed_task_fragment, container, false)
     }
 
     companion object
@@ -54,7 +54,7 @@ class CompletedTaskFragment : Fragment()
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            CompletedTaskFragment().apply {
+            ClosedTaskFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

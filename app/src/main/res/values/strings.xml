@@ -38,4 +38,6 @@
     <string name="invalid_time_ddl_scheduled">Deadline is before scheduled time</string>
     <string name="save">Save</string>
     <string name="invalid_name">Name is empty</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="closed">Closed</string>
 </resources>
