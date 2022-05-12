@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.snackbar.Snackbar
 import crosstech.future.Global
 import crosstech.future.gui.OpenTaskFragment
-import crosstech.future.logics.models.Task
 import crosstech.future.logics.models.TaskListAdapter
 
 class CancelSwipeManager(
@@ -27,7 +26,7 @@ class CancelSwipeManager(
         val removed = adapter.retrieveData()[pos]
         adapter removeAt pos
         global.tasks.remove(removed)
-        frag.updateHeader()
+        frag.updateHeader(true)
         Snackbar.make(recyclerView, "Task cancelled: ${removed.name}", Snackbar.LENGTH_LONG)
             .setAction("Undo") {
                 val list = adapter.retrieveData()
@@ -35,7 +34,7 @@ class CancelSwipeManager(
                 val i = adapter differAndAddFrom TasksManager.filterOpenTasksAndSort(list)
                 if (i != null) recyclerView.scrollToPosition(i)
                 global.tasks.add(removed)
-                frag.updateHeader()
+                frag.updateHeader(true)
             }
             .show()
     }

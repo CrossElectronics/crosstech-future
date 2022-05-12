@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import crosstech.future.Global
 import crosstech.future.R
 import crosstech.future.databinding.OpenTaskFragmentBinding
+import crosstech.future.gui.Initializations.Companion.saveData
 import crosstech.future.logics.enums.TaskStatus
 import crosstech.future.logics.managers.*
 import crosstech.future.logics.models.Task
@@ -102,12 +103,13 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
         }
     }
 
-    fun updateHeader()
+    fun updateHeader(update: Boolean = false)
     {
         binding.plannedCount.text =
             global.tasks.count { it.status == TaskStatus.Planned }.toString()
         binding.scheduledCount.text =
             global.tasks.count { it.status == TaskStatus.Scheduled }.toString()
+        if (update) global.tasks.saveData(Global.TASKS_FILE, requireContext())
     }
 
     fun notifyUpdate()
@@ -116,6 +118,7 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
         val i = adapter differAndAddFrom tasks
         if (i != null) taskRecycler.scrollToPosition(i)
         updateHeader()
+        global.tasks.saveData(Global.TASKS_FILE, requireContext())
     }
 
     companion object

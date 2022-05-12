@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import crosstech.future.R
 import crosstech.future.logics.enums.TaskIcon
+import crosstech.future.logics.enums.TaskStatus
 import crosstech.future.logics.enums.Urgency
 import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
@@ -43,7 +44,7 @@ class TaskListAdapter(private var data: MutableList<Task>) :
         )
         holder.taskName.text = item.name
         holder.hashText.text = item.getSHA1().substring(0 .. 6)
-        if (item.iconEnum == TaskIcon.Completed)
+        if (item.status == TaskStatus.Completed)
         {
             bindData(holder, "Completed", item.completedTime)
             return

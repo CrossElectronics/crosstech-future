@@ -28,14 +28,14 @@ class ReopenSwipeManager(
         val time = target.completedTime
         target.reopenAnew()
         adapter removeAt pos
-        frag.updateHeader()
+        frag.updateHeader(true)
         Snackbar.make(recyclerView, "Task completed: ${target.name}", Snackbar.LENGTH_LONG)
             .setAction("Undo") {
                 target.complete(time ?: LocalDateTime.now(), 5)
                 val i =
                     adapter differAndAddFrom TasksManager.filterCompletedTaskAndSort(global.tasks)
                 if (i != null) recyclerView.scrollToPosition(i)
-                frag.updateHeader()
+                frag.updateHeader(true)
             }
             .show()
     }
