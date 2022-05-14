@@ -28,6 +28,7 @@ class TaskListAdapter(private var data: MutableList<Task>) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int)
     {
+        // TODO: Need a more elegant solution than this. This only solves the problem quick and dirty
         // Issue: scrolling back up messes up bound data
         holder.setIsRecyclable(false)
         val item = data[position]

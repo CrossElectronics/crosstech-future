@@ -34,6 +34,7 @@ class Initializations
                 navbar.updateIcon(dest.id)
                 when (dest.id)
                 {
+                    // TODO: Add fifth fragment (Commits)
                     // Check if having five tabs in the bottom nav bar complies with material design code
                     // refactor if necessary
                     R.id.dashboardFragment ->
@@ -62,6 +63,7 @@ class Initializations
                         R.id.dashboardFragment -> if (itemId == R.id.dashboardFragment) R.drawable.dashboard_filled else R.drawable.dashboard
                         R.id.statsFragment     -> if (itemId == R.id.statsFragment) R.drawable.stats_filled else R.drawable.stats
                         R.id.milestoneFragment -> if (itemId == R.id.milestoneFragment) R.drawable.milestone_filled else R.drawable.milestone
+                        // TODO: Add two types of commit icon
                         else                   -> throw Exception("Illegal operation")
                     }
                 )
