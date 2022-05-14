@@ -80,7 +80,6 @@ data class Task(
      */
     fun getTag(): String
     {
-        // TODO: Localisation
         val result = when
         {
             isDeadlineApproaching()                   -> "Deadline approaching"

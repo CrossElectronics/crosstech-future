@@ -27,7 +27,6 @@ class CompleteSwipeManager(
         val removed = adapter.retrieveData()[pos]
         val origStatus = removed.status
         val origIcon = removed.iconEnum
-        // TODO: remove efficiency and difficulty from task
         removed.complete(LocalDateTime.now(), 5)
         adapter removeAt pos
         frag.updateHeader(true)

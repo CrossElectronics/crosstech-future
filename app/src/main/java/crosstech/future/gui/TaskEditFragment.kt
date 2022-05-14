@@ -308,7 +308,6 @@ class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
                     }
                 }
             }
-            // TODO: Reminder
             // Reminds user before starting, starting, and before deadline
         }
     }
@@ -386,7 +385,6 @@ class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
                     requireActivity().supportFragmentManager.findFragmentById(R.id.taskInnerFrag)
                 if (frag is OpenTaskFragment)
                     frag.notifyUpdate()
-                // TODO: Task editing
                 // Needs to edit the task, schedule it and whatnot
             }
         }
