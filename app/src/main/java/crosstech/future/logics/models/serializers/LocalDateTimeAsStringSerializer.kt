@@ -12,6 +12,7 @@ import java.util.*
 
 object LocalDateTimeAsStringSerializer : KSerializer<LocalDateTime>
 {
+    // TODO: Change datetime storing to a more economical type
     // Preferably long: use Unix Timestamp
     override fun deserialize(decoder: Decoder): LocalDateTime
     {
