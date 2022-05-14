@@ -16,4 +16,5 @@
         android:id="@+id/statsFragment"
         android:icon="@drawable/stats"
         android:title="@string/stats_tab" />
+    <!--TODO: Add 5th fragment (Commits)-->
 </menu>

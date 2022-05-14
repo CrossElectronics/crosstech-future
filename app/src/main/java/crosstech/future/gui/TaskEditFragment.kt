@@ -27,7 +27,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "parcel"
 private const val ARG_PARAM2 = "mode"
@@ -41,7 +40,6 @@ class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
 {
     private lateinit var binding: TaskEditFragmentBinding
 
-    // TODO: Rename and change types of parameters
     private var task: Task? = null
     private var mode: Boolean? = null
     private lateinit var global: Global
@@ -310,7 +308,8 @@ class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
                     }
                 }
             }
-            // TODO: Reminder!
+            // TODO: Reminder
+            // Reminds user before starting, starting, and before deadline
         }
     }
 
@@ -335,7 +334,6 @@ class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
          * @param param2 Parameter 2.
          * @return A new instance of fragment TaskEditFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             TaskEditFragment().apply {
@@ -348,7 +346,6 @@ class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
 
     override fun onMenuItemClick(item: MenuItem?): Boolean
     {
-        Log.i("DEBUG >====> ", "MENU item clicked!")
         if (task == null) return true
         val task = task as Task
         when (item?.itemId)
@@ -382,7 +379,6 @@ class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
                 if (mode == true)
                 {
                     global.tasks.add(task)
-                    // TODO: Make RecyclerView refresh itself
                     dismiss()
                 }
 
@@ -390,7 +386,8 @@ class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
                     requireActivity().supportFragmentManager.findFragmentById(R.id.taskInnerFrag)
                 if (frag is OpenTaskFragment)
                     frag.notifyUpdate()
-                // TODO: Modification
+                // TODO: Task editing
+                // Needs to edit the task, schedule it and whatnot
             }
         }
         return true
