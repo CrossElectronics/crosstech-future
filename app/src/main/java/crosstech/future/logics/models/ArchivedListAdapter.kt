@@ -22,6 +22,8 @@ class ArchivedListAdapter(var data: MutableList<ArchivedTask>) :
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int)
     {
+        // TODO: Better implementation of setting recyclable to false
+        // Issue: scrolling back up messes up bound data
         holder.setIsRecyclable(false)
         val item = data[position]
         holder.taskIcon.setImageResource(

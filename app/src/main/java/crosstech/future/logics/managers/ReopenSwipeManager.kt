@@ -29,7 +29,7 @@ class ReopenSwipeManager(
         target.reopenAnew()
         adapter removeAt pos
         frag.updateHeader(true)
-        Snackbar.make(recyclerView, "Task completed: ${target.name}", Snackbar.LENGTH_LONG)
+        Snackbar.make(recyclerView, "Task reopened: ${target.name}", Snackbar.LENGTH_LONG)
             .setAction("Undo") {
                 target.complete(time ?: LocalDateTime.now(), 5)
                 val i =
