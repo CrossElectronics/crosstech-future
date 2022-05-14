@@ -22,6 +22,5 @@ class DashboardFragment: Fragment(R.layout.dashboard_fragment)
 
         return binding.root
     }
-    // TODO: Implement dashboard
     // Features: Ongoing devotion, scheduled today, next deadline, stats
 }

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import crosstech.future.R
 
-// TODO: Clean up all the unused fragment data passing
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
