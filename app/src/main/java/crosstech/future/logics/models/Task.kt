@@ -2,25 +2,21 @@ package crosstech.future.logics.models
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.util.Log
 import crosstech.future.logics.Utils.Companion.computeSHA1
 import crosstech.future.logics.enums.TaskIcon
 import crosstech.future.logics.enums.TaskStatus
 import crosstech.future.logics.enums.Urgency
-import crosstech.future.logics.models.serializers.LocalDateTimeAsStringSerializer
+import crosstech.future.logics.models.serializers.LocalDateTimeSerializer
 import java.lang.IllegalArgumentException
 import java.time.LocalDateTime
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
 import java.time.temporal.ChronoUnit
-import kotlin.concurrent.timer
-import kotlin.math.log
 
 @Serializable
 data class Task(
     var name: String,
     var description: String?,
-    @Serializable(with = LocalDateTimeAsStringSerializer::class)
+    @Serializable(with = LocalDateTimeSerializer::class)
     var creationTime: LocalDateTime,
     var urgency: Urgency,
     var isImportant: Boolean,
@@ -34,13 +30,13 @@ data class Task(
         if (isImportant) iconEnum = TaskIcon.Important
     }
 
-    @Serializable(with = LocalDateTimeAsStringSerializer::class)
+    @Serializable(with = LocalDateTimeSerializer::class)
     var scheduledTime: LocalDateTime? = null
 
-    @Serializable(with = LocalDateTimeAsStringSerializer::class)
+    @Serializable(with = LocalDateTimeSerializer::class)
     var completedTime: LocalDateTime? = null
 
-    @Serializable(with = LocalDateTimeAsStringSerializer::class)
+    @Serializable(with = LocalDateTimeSerializer::class)
     var deadline: LocalDateTime? = null
     var reminder: Boolean = false
     var efficiency: Int = 0
