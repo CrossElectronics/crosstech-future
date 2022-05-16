@@ -22,6 +22,7 @@ class Global : Application()
 
     companion object
     {
-        val TASKS_FILE = "tasks.data"
+        const val TASKS_FILE = "tasks.data"
+        const val ARCHIVE_FILE = "archive.data"
     }
 }
