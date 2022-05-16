@@ -4,7 +4,6 @@ import crosstech.future.logics.enums.Urgency
 import crosstech.future.logics.models.Task
 import kotlinx.serialization.*
 import kotlinx.serialization.protobuf.ProtoBuf
-import kotlinx.serialization.protobuf.ProtoBuf.Default.decodeFromByteArray
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -28,32 +27,28 @@ class ExampleUnitTest
             "Normal",
             LocalDateTime.parse("2022-05-06T09:59"),
             Urgency.Normal,
-            false,
-            5
+            false
         )
         val task_PU = Task(
             "Planned urgent",
             "Normal urgent",
             LocalDateTime.parse("2022-05-06T10:01"),
             Urgency.Urgent,
-            isImportant = false,
-            5
+            isImportant = false
         )
         val task_PI = Task(
             "Planned important",
             "Normal important",
             LocalDateTime.parse("2022-05-06T10:02"),
             Urgency.Normal,
-            isImportant = true,
-            5
+            isImportant = true
         )
         val task_PUI = Task(
             "Planned urgent important",
             "Normal urgent important",
             LocalDateTime.parse("2022-05-06T10:04"),
             Urgency.Urgent,
-            isImportant = true,
-            5
+            isImportant = true
         )
         val task_SN = task_PN.copy().schedule(
             LocalDateTime.parse("2022-05-06T10:08")
@@ -134,16 +129,14 @@ class ExampleUnitTest
             "lorem ipsum of the day",
             LocalDateTime.now(),
             Urgency.Normal,
-            false,
-            5
+            false
         )
         val task2 = Task(
             "Dummy Scheduled Task",
             "Lorem ipsum of another day",
             LocalDateTime.now(),
             Urgency.Urgent,
-            false,
-            9
+            false
         ).schedule(
             LocalDateTime.now().plusMinutes(1),
             LocalDateTime.now().plusDays(1)
@@ -153,8 +146,7 @@ class ExampleUnitTest
             "Needs to address soon",
             LocalDateTime.now().plusMinutes(1),
             Urgency.Urgent,
-            true,
-            9
+            true
         ).schedule(
             LocalDateTime.now().plusMinutes(1),
             LocalDateTime.now().plusDays(1)
@@ -178,8 +170,7 @@ class ExampleUnitTest
             "lorem ipsum of the day",
             LocalDateTime.now(),
             Urgency.Normal,
-            false,
-            5
+            false
         )
         val serialized = ProtoBuf.encodeToHexString(task)
         val size = ProtoBuf.encodeToByteArray(task).size

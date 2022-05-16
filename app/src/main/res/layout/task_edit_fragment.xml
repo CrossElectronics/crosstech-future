@@ -124,32 +124,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingVertical="@dimen/icon_padding">
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/difficulty" />
-
-                <com.google.android.material.slider.Slider
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/difficulty_slider"
-                    android:theme="@style/Theme.MaterialComponents.DayNight"
-                    android:value="5"
-                    android:valueFrom="0"
-                    android:valueTo="10"
-                    app:trackHeight="20dp"
-                    android:id="@+id/difficultySlider" />
-
-            </LinearLayout>
-
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -97,7 +97,6 @@ class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
                 Urgency.Normal -> 2f
                 Urgency.Urgent -> 3f
             }
-            difficultySlider.value = task.estDifficulty.toFloat()
             scheduleSw.isChecked = task.scheduledTime != null
             importanceSw.isChecked = task.isImportant
             creationDateText.setText(yearFormatter.format(task.creationTime))
@@ -161,24 +160,6 @@ class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
                             3f   -> Urgency.Urgent
                             else -> throw Exception("Illegal slider value")
                         }
-                    }
-                })
-            difficultySlider.setLabelFormatter {
-                val grades = arrayOf("E", "E+", "D", "D+", "C-", "C", "C+", "B", "B+", "A", "A+")
-                grades[it.toInt()]
-            }
-            difficultySlider.addOnSliderTouchListener(
-                object : Slider.OnSliderTouchListener
-                {
-                    @SuppressLint("RestrictedApi")
-                    override fun onStartTrackingTouch(slider: Slider)
-                    {
-                    }
-
-                    @SuppressLint("RestrictedApi")
-                    override fun onStopTrackingTouch(slider: Slider)
-                    {
-                        task.estDifficulty = slider.value.toInt()
                     }
                 })
             importanceSw.setOnCheckedChangeListener { _, b -> task.isImportant = b }

@@ -20,7 +20,6 @@ data class Task(
     var creationTime: LocalDateTime,
     var urgency: Urgency,
     var isImportant: Boolean,
-    var estDifficulty: Int,
     var status: TaskStatus = TaskStatus.Planned,
     var iconEnum: TaskIcon = TaskIcon.Planned
 ) : Parcelable
@@ -39,7 +38,6 @@ data class Task(
     @Serializable(with = LocalDateTimeSerializer::class)
     var deadline: LocalDateTime? = null
     var reminder: Boolean = false
-    var efficiency: Int = 0
 
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -47,7 +45,6 @@ data class Task(
         parcel.readSerializable() as LocalDateTime,
         parcel.readSerializable() as Urgency,
         parcel.readByte() != 0.toByte(),
-        parcel.readInt(),
         parcel.readSerializable() as TaskStatus,
         parcel.readSerializable() as TaskIcon
     )
@@ -56,7 +53,6 @@ data class Task(
         completedTime = parcel.readSerializable() as LocalDateTime?
         deadline = parcel.readSerializable() as LocalDateTime?
         reminder = parcel.readByte() != 0.toByte()
-        efficiency = parcel.readInt()
     }
 
     /**
@@ -67,8 +63,7 @@ data class Task(
         description = "",
         creationTime = LocalDateTime.now(),
         urgency = Urgency.Normal,
-        isImportant = false,
-        estDifficulty = 5
+        isImportant = false
     )
 
     /**
@@ -148,15 +143,12 @@ data class Task(
      * @throws IllegalStateException if status is not planned or scheduled
      * @throws IllegalArgumentException if efficiency is out of range
      */
-    fun complete(completedTime: LocalDateTime, efficiency: Int): Task
+    fun complete(completedTime: LocalDateTime): Task
     {
         if (status != TaskStatus.Scheduled && status != TaskStatus.Planned)
             throw IllegalStateException("Cannot complete this state ($status)")
-        if (efficiency !in 1 .. 5)
-            throw IllegalArgumentException("Efficiency must be in range of 1..5")
         status = TaskStatus.Completed
         this.completedTime = completedTime
-        this.efficiency = efficiency
         reminder = false
         iconEnum = TaskIcon.Completed
         return this
@@ -254,14 +246,12 @@ data class Task(
         parcel.writeSerializable(creationTime)
         parcel.writeSerializable(urgency)
         parcel.writeByte(if (isImportant) 1 else 0)
-        parcel.writeInt(estDifficulty)
         parcel.writeSerializable(status)
         parcel.writeSerializable(iconEnum)
         parcel.writeSerializable(scheduledTime)
         parcel.writeSerializable(completedTime)
         parcel.writeSerializable(deadline)
         parcel.writeByte(if (reminder) 1 else 0)
-        parcel.writeInt(efficiency)
     }
 
     override fun describeContents(): Int
