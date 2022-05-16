@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import crosstech.future.Global
@@ -12,6 +13,7 @@ import crosstech.future.R
 import crosstech.future.databinding.ArchivedFragmentBinding
 import crosstech.future.gui.Initializations.Companion.saveData
 import crosstech.future.logics.enums.TaskIcon
+import crosstech.future.logics.managers.DeleteSwipeManager
 import crosstech.future.logics.managers.TasksManager
 import crosstech.future.logics.models.ArchivedListAdapter
 
@@ -56,9 +58,13 @@ class ArchivedFragment : Fragment(R.layout.archived_fragment)
         adapter = ArchivedListAdapter(tasks)
         taskRecycler.adapter = adapter
         taskRecycler.layoutManager = LinearLayoutManager(activity)
+
+        val deleteSwipeManager =
+            ItemTouchHelper(DeleteSwipeManager(view, taskRecycler, global, this))
+        deleteSwipeManager.attachToRecyclerView(taskRecycler)
     }
 
-    private fun updateHeader(updateSave: Boolean = false)
+    fun updateHeader(updateSave: Boolean = false)
     {
         binding.cmpArcCount.text =
             global.archive.count { it.iconEnum == TaskIcon.Completed }.toString()
