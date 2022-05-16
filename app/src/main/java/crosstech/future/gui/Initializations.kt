@@ -19,6 +19,7 @@ import kotlinx.serialization.SerializationStrategy
 import kotlinx.serialization.decodeFromByteArray
 import kotlinx.serialization.encodeToByteArray
 import kotlinx.serialization.protobuf.ProtoBuf
+import java.io.File
 import java.io.FileInputStream
 import java.lang.Exception
 import kotlin.math.log
