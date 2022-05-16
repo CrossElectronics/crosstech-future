@@ -6,17 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import crosstech.future.Global
 import crosstech.future.R
 import crosstech.future.databinding.DashboardFragmentBinding
 import crosstech.future.logics.Utils.Companion.getSaveSize
 import crosstech.future.logics.Utils.Companion.toReadable
+import crosstech.future.logics.managers.TasksManager
+import crosstech.future.logics.models.TaskListAdapter
 
 class DashboardFragment: Fragment(R.layout.dashboard_fragment)
 {
     private lateinit var binding: DashboardFragmentBinding
     private lateinit var global: Global
     private lateinit var activity: Activity
+    private lateinit var adapter: TaskListAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,12 +40,31 @@ class DashboardFragment: Fragment(R.layout.dashboard_fragment)
     {
         super.onViewCreated(view, savedInstanceState)
         updateSize()
+        updateTodayTask()
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?)
     {
         super.onViewStateRestored(savedInstanceState)
         updateSize()
+        updateTodayTask()
+    }
+
+    private fun updateTodayTask()
+    {
+        val tasks = TasksManager.filterTodayTask(global.tasks)
+        if (tasks.isNotEmpty())
+        {
+            binding.cardView2.visibility = View.VISIBLE
+            adapter = TaskListAdapter(tasks.toMutableList()) {}
+            binding.todayRecycler.adapter = adapter
+            binding.todayRecycler.layoutManager = LinearLayoutManager(activity)
+            adapter.notifyDataSetChanged()
+        }
+        else
+        {
+            binding.cardView2.visibility = View.GONE
+        }
     }
 
     private fun updateSize()
