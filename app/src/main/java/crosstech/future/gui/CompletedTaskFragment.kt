@@ -55,7 +55,9 @@ class CompletedTaskFragment : Fragment(R.layout.completed_task_fragment)
         super.onViewCreated(view, savedInstanceState)
         val tasks = TasksManager.filterCompletedTaskAndSort(global.tasks)
         updateHeader()
-        adapter = TaskListAdapter(tasks)
+        adapter = TaskListAdapter(tasks) {
+            // TODO: Add task viewing for completed task
+        }
         taskRecycler.adapter = adapter
         taskRecycler.layoutManager = LinearLayoutManager(activity)
 
