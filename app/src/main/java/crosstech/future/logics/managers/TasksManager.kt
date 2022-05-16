@@ -17,11 +17,10 @@ class TasksManager
             val filtered =
                 tasks.filter { it.status == TaskStatus.Planned || it.status == TaskStatus.Scheduled }
             // adjust icons
-            val important = filtered.filter { it.isImportant }
-            for (item in important) item.iconEnum = TaskIcon.Important
-            val deadlineApproaching =
-                filtered.filter { it.isDeadlineApproaching() }
-            for (item in deadlineApproaching) item.iconEnum = TaskIcon.Deadline
+            filtered.assignIcon(TaskIcon.Planned) { it.status == TaskStatus.Planned }
+            filtered.assignIcon(TaskIcon.Scheduled) { it.status == TaskStatus.Scheduled }
+            filtered.assignIcon(TaskIcon.Important) { it.isImportant }
+            filtered.assignIcon(TaskIcon.Deadline) { it.isDeadlineApproaching() }
             // sort
             val sortedList = filtered.sortedWith(
                 compareByDescending<Task> { it.getPriority() }
@@ -33,6 +32,12 @@ class TasksManager
                     }
                     .thenBy { it.scheduledTime ?: LocalDateTime.MAX })
             return sortedList.toMutableList()
+        }
+
+        private fun List<Task>.assignIcon(icon: TaskIcon, predicate: (Task) -> Boolean)
+        {
+            val filtered = this.filter(predicate)
+            for (item in filtered) item.iconEnum = icon
         }
 
         fun filterCompletedTaskAndSort(tasks: List<Task>): MutableList<Task>

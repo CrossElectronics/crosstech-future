@@ -65,7 +65,9 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
         global = activity?.applicationContext as Global
         val tasks = TasksManager.filterOpenTasksAndSort(global.tasks)
         updateHeader()
-        adapter = TaskListAdapter(tasks)
+        adapter = TaskListAdapter(tasks) {
+            pullTaskEditor(it, false)
+        }
         taskRecycler = binding.taskRecycler
         val fab = binding.addTaskFab
         taskRecycler.adapter = adapter
@@ -91,15 +93,20 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
         rightSwpMng.attachToRecyclerView(taskRecycler)
 
         fab.setOnClickListener {
-            val newTaskFrag = TaskEditFragment()
-            val bundle = Bundle()
-            bundle.putParcelable("parcel", Task())
-            bundle.putBoolean("mode", true)
-            newTaskFrag.arguments = bundle
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .add(R.id.content, newTaskFrag).addToBackStack(null).commit()
+            pullTaskEditor(Task(), true)
         }
+    }
+
+    private fun pullTaskEditor(task: Task, isNew: Boolean)
+    {
+        val newTaskFrag = TaskEditFragment()
+        val bundle = Bundle()
+        bundle.putParcelable("parcel", task)
+        bundle.putBoolean("mode", isNew)
+        newTaskFrag.arguments = bundle
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .add(R.id.content, newTaskFrag).addToBackStack(null).commit()
     }
 
     fun updateHeader(updateTasks: Boolean = false, updateArchive: Boolean = false)
@@ -112,11 +119,25 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
         if (updateArchive) global.archive.saveData(Global.ARCHIVE_FILE, global.context)
     }
 
-    fun notifyUpdate()
+    fun notifyAdd()
     {
         val tasks = TasksManager.filterOpenTasksAndSort(global.tasks)
         val i = adapter differAndAddFrom tasks
         if (i != null) taskRecycler.scrollToPosition(i)
+        updateHeader()
+        global.tasks.saveData(Global.TASKS_FILE, global.context)
+    }
+
+    fun notifyChange(index: Int)
+    {
+        val item = global.tasks[index]
+        val tasks = TasksManager.filterOpenTasksAndSort(global.tasks)
+        val currentIndex = tasks.indexOf(item)
+        adapter.data = tasks
+        // TODO: Use notifyItemChanged(currentIndex)
+        // Need to use setHasStableIds and override getItemId
+        adapter.notifyDataSetChanged()
+        taskRecycler.scrollToPosition(currentIndex)
         updateHeader()
         global.tasks.saveData(Global.TASKS_FILE, global.context)
     }

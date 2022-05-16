@@ -2,7 +2,6 @@ package crosstech.future.gui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
@@ -29,7 +28,7 @@ import java.util.*
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "parcel"
-private const val ARG_PARAM2 = "mode"
+private const val ARG_PARAM2 = "mode" // mode = true: add task; false: edit task
 
 /**
  * A simple [Fragment] subclass.
@@ -360,15 +359,18 @@ class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
                 if (mode == true)
                 {
                     global.tasks.add(task)
-                    dismiss()
                 }
+                dismiss()
 
                 val frag =
                     requireActivity().supportFragmentManager.findFragmentById(R.id.taskInnerFrag)
                 if (frag is OpenTaskFragment)
-                    frag.notifyUpdate()
-                // TODO: Task editing
-                // Needs to edit the task, schedule it and whatnot
+                {
+                    if (mode == true)
+                        frag.notifyAdd()
+                    else
+                        frag.notifyChange(global.tasks.indexOf(task))
+                }
             }
         }
         return true
