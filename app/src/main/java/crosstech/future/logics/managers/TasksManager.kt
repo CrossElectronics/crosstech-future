@@ -5,6 +5,7 @@ import crosstech.future.logics.enums.TaskStatus
 import crosstech.future.logics.enums.Urgency
 import crosstech.future.logics.models.ArchivedTask
 import crosstech.future.logics.models.Task
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
@@ -53,6 +54,17 @@ class TasksManager
             return tasks
                 .sortedByDescending { it.completeTime }
                 .toMutableList()
+        }
+
+        fun filterTodayTask(tasks: List<Task>): List<Task>
+        {
+            return tasks
+                .filter { it.scheduledTime != null }
+                .filter {
+                    it.scheduledTime!!.isAfter(LocalDate.now().atStartOfDay())
+                    && it.scheduledTime!!.isBefore(LocalDate.now().plusDays(1).atStartOfDay())
+                }
+                .sortedByDescending { it.scheduledTime }
         }
     }
 }
