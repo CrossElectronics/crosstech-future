@@ -3,6 +3,7 @@ package crosstech.future.logics.managers
 import crosstech.future.logics.enums.TaskIcon
 import crosstech.future.logics.enums.TaskStatus
 import crosstech.future.logics.enums.Urgency
+import crosstech.future.logics.models.ArchivedTask
 import crosstech.future.logics.models.Task
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
@@ -39,6 +40,13 @@ class TasksManager
             return tasks
                 .filter { it.status == TaskStatus.Completed }
                 .sortedByDescending { it.completedTime }
+                .toMutableList()
+        }
+
+        fun sortArchivedTask(tasks: List<ArchivedTask>): MutableList<ArchivedTask>
+        {
+            return tasks
+                .sortedByDescending { it.completeTime }
                 .toMutableList()
         }
     }

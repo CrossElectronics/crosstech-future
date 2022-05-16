@@ -13,6 +13,7 @@ import crosstech.future.R
 import crosstech.future.databinding.CompletedTaskFragmentBinding
 import crosstech.future.gui.Initializations.Companion.saveData
 import crosstech.future.logics.enums.TaskStatus
+import crosstech.future.logics.managers.ArchiveSwipeManager
 import crosstech.future.logics.managers.ReopenSwipeManager
 import crosstech.future.logics.managers.TasksManager
 import crosstech.future.logics.models.TaskListAdapter
@@ -60,13 +61,16 @@ class CompletedTaskFragment : Fragment(R.layout.completed_task_fragment)
 
         val reopenSwpMng = ItemTouchHelper(ReopenSwipeManager(view, taskRecycler, global, this))
         reopenSwpMng.attachToRecyclerView(taskRecycler)
+        val archiveSwpMng = ItemTouchHelper(ArchiveSwipeManager(view, taskRecycler, global, this))
+        archiveSwpMng.attachToRecyclerView(taskRecycler)
     }
 
-    fun updateHeader(update: Boolean = false)
+    fun updateHeader(updateTask: Boolean = false, updateArchive: Boolean = false)
     {
         binding.completedCount.text =
             global.tasks.count { it.status == TaskStatus.Completed }.toString()
-        if (update) global.tasks.saveData(Global.TASKS_FILE, global.context)
+        if (updateTask) global.tasks.saveData(Global.TASKS_FILE, global.context)
+        if (updateArchive) global.archive.saveData(Global.ARCHIVE_FILE, global.context)
     }
 
     companion object

@@ -139,7 +139,6 @@ data class Task(
     /**
      * Completes this planned or scheduled task
      * @param completedTime Time at which the task is completed
-     * @param efficiency Efficiency grade in range 1..5
      * @throws IllegalStateException if status is not planned or scheduled
      * @throws IllegalArgumentException if efficiency is out of range
      */
@@ -200,11 +199,12 @@ data class Task(
             description,
             creationTime,
             completedTime!!,
-            iconEnum
+            TaskIcon.Completed
         )
 
     fun cancel(time: LocalDateTime): Task
     {
+        // TODO: Make cancel() return ArchivedTask
         iconEnum = TaskIcon.Cancelled
         completedTime = time
         return this
