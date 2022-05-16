@@ -7,17 +7,17 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import java.time.DateTimeException
+import java.time.Instant
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.util.*
 
-object LocalDateTimeAsStringSerializer : KSerializer<LocalDateTime>
+object LocalDateTimeSerializer : KSerializer<LocalDateTime>
 {
-    // TODO: Change datetime storing to a more economical type
-    // Preferably long: use Unix Timestamp
     override fun deserialize(decoder: Decoder): LocalDateTime
     {
-        val string = decoder.decodeString()
-        return LocalDateTime.parse(string)
+        val timestamp = decoder.decodeLong()
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneOffset.UTC)
     }
 
     override val descriptor: SerialDescriptor
@@ -25,6 +25,6 @@ object LocalDateTimeAsStringSerializer : KSerializer<LocalDateTime>
 
     override fun serialize(encoder: Encoder, value: LocalDateTime)
     {
-        encoder.encodeString(value.toString())
+        encoder.encodeLong(value.atZone(ZoneOffset.UTC).toInstant().toEpochMilli())
     }
 }

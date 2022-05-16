@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import crosstech.future.logics.Utils.Companion.computeSHA1
 import crosstech.future.logics.enums.TaskIcon
-import crosstech.future.logics.models.serializers.LocalDateTimeAsStringSerializer
+import crosstech.future.logics.models.serializers.LocalDateTimeSerializer
 import kotlinx.serialization.Serializable
 import java.time.LocalDateTime
 
@@ -12,9 +12,9 @@ import java.time.LocalDateTime
 data class ArchivedTask(
     val name: String,
     val description: String?,
-    @Serializable(with = LocalDateTimeAsStringSerializer::class)
+    @Serializable(with = LocalDateTimeSerializer::class)
     val creationTime: LocalDateTime,
-    @Serializable(with = LocalDateTimeAsStringSerializer::class)
+    @Serializable(with = LocalDateTimeSerializer::class)
     val completeTime: LocalDateTime,
     val iconEnum: TaskIcon
 ) : Parcelable
