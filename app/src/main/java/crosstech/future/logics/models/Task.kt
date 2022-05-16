@@ -202,13 +202,14 @@ data class Task(
             TaskIcon.Completed
         )
 
-    fun cancel(time: LocalDateTime): Task
-    {
-        // TODO: Make cancel() return ArchivedTask
-        iconEnum = TaskIcon.Cancelled
-        completedTime = time
-        return this
-    }
+    fun cancel(time: LocalDateTime): ArchivedTask =
+        ArchivedTask(
+            name,
+            description,
+            creationTime,
+            time,
+            TaskIcon.Cancelled
+        )
 
     /**
      * Calculates message digestion of current task regardless of further status change

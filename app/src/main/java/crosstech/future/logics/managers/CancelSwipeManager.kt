@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 import crosstech.future.Global
 import crosstech.future.gui.OpenTaskFragment
 import crosstech.future.logics.models.TaskListAdapter
+import java.time.LocalDateTime
 
 class CancelSwipeManager(
     val view: View,
@@ -23,20 +24,20 @@ class CancelSwipeManager(
     {
         val pos = viewHolder.adapterPosition
         val adapter = recyclerView.adapter as TaskListAdapter
-        val removed = adapter.retrieveData()[pos]
+        val toRemove = adapter.retrieveData()[pos]
+        val removed = toRemove.cancel(LocalDateTime.now())
         adapter removeAt pos
-        global.tasks.remove(removed)
-        frag.updateHeader(true)
-        Snackbar.make(recyclerView, "Task cancelled: ${removed.name}", Snackbar.LENGTH_LONG)
+        global.tasks.remove(toRemove)
+        global.archive.add(removed)
+        frag.updateHeader(updateTasks = true, updateArchive = true)
+        Snackbar.make(recyclerView, "Task cancelled: ${toRemove.name}", Snackbar.LENGTH_LONG)
             .setAction("Undo") {
-                val list = adapter.retrieveData()
-                list.add(removed)
-                val i = adapter differAndAddFrom TasksManager.filterOpenTasksAndSort(list)
+                global.tasks.add(toRemove)
+                global.archive.remove(removed)
+                val i = adapter differAndAddFrom TasksManager.filterOpenTasksAndSort(global.tasks)
                 if (i != null) recyclerView.scrollToPosition(i)
-                global.tasks.add(removed)
-                frag.updateHeader(true)
+                frag.updateHeader(updateTasks = true, updateArchive = true)
             }
             .show()
     }
-
 }
