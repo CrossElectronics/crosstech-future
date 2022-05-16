@@ -51,4 +51,30 @@ class ArchivedListAdapter(var data: MutableList<ArchivedTask>) :
     }
 
     override fun getItemCount(): Int = data.size
+
+    // TODO: Merge method into a class
+    // Merge [ArchivedListAdapter.kt]'s and [TaskListAdapter.kt]'s custom method into a separate
+    // class, then inherit the class to avoid writing twice.
+    infix fun removeAt(index: Int)
+    {
+        data.removeAt(index)
+        notifyItemRemoved(index)
+    }
+
+    fun retrieveData(): MutableList<ArchivedTask> = data.toMutableList()
+
+    infix fun differAndAddFrom(newData: List<ArchivedTask>): Int?
+    {
+        if (newData.size <= data.size || newData == data) return null
+        for (i in newData.indices)
+        {
+            if (i >= data.size || newData[i] != data[i])
+            {
+                data.add(i, newData[i])
+                notifyItemInserted(i)
+                return i
+            }
+        }
+        return null
+    }
 }
