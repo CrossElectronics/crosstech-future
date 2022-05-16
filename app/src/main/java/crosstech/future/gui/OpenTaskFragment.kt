@@ -102,13 +102,14 @@ class OpenTaskFragment : Fragment(R.layout.open_task_fragment)
         }
     }
 
-    fun updateHeader(update: Boolean = false)
+    fun updateHeader(updateTasks: Boolean = false, updateArchive: Boolean = false)
     {
         binding.plannedCount.text =
             global.tasks.count { it.status == TaskStatus.Planned }.toString()
         binding.scheduledCount.text =
             global.tasks.count { it.status == TaskStatus.Scheduled }.toString()
-        if (update) global.tasks.saveData(Global.TASKS_FILE, global.context)
+        if (updateTasks) global.tasks.saveData(Global.TASKS_FILE, global.context)
+        if (updateArchive) global.archive.saveData(Global.ARCHIVE_FILE, global.context)
     }
 
     fun notifyUpdate()
