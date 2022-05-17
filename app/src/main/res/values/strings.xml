@@ -41,4 +41,6 @@
     <string name="cancelled">Cancelled</string>
     <string name="closed">Closed</string>
     <string name="memory_usage">Save Size</string>
+    <string name="add_a_milestone">Add a milestone</string>
+    <string name="edit">Edit</string>
 </resources>

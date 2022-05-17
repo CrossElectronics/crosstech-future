@@ -5,4 +5,9 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">6dp</item>
     </style>
+
+    <style name="AppTheme.HashChip" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:fontFamily">@font/roboto_mono_regul</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
