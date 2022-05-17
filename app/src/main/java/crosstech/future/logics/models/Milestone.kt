@@ -6,10 +6,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Milestone(var name: String,
+                     var description: String,
                      var openTasks: MutableList<Task>,
                      var archive: MutableList<ArchivedTask>) : Parcelable
 {
     constructor(parcel: Parcel) : this(
+        parcel.readString()!!,
         parcel.readString()!!,
         parcel.createTypedArrayList(Task.CREATOR)?.toMutableList() ?: mutableListOf(),
         parcel.createTypedArrayList(ArchivedTask.CREATOR)?.toMutableList() ?: mutableListOf())
@@ -17,6 +19,7 @@ data class Milestone(var name: String,
     override fun writeToParcel(parcel: Parcel, flags: Int)
     {
         parcel.writeString(name)
+        parcel.writeString(description)
         parcel.writeTypedList(openTasks)
         parcel.writeTypedList(archive)
     }
