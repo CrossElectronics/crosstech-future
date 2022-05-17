@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Milestone(var name: String,
                      var description: String,
-                     var openTasks: MutableList<Task>,
+                     var tasks: MutableList<Task>,
                      var archive: MutableList<ArchivedTask>) : Parcelable
 {
     constructor(parcel: Parcel) : this(
@@ -20,7 +20,7 @@ data class Milestone(var name: String,
     {
         parcel.writeString(name)
         parcel.writeString(description)
-        parcel.writeTypedList(openTasks)
+        parcel.writeTypedList(tasks)
         parcel.writeTypedList(archive)
     }
 
