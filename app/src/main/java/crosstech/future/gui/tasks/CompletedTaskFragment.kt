@@ -1,4 +1,4 @@
-package crosstech.future.gui
+package crosstech.future.gui.tasks
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

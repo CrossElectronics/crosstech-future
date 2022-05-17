@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.snackbar.Snackbar
 import crosstech.future.Global
-import crosstech.future.gui.CompletedTaskFragment
+import crosstech.future.gui.tasks.CompletedTaskFragment
 import crosstech.future.logics.models.TaskListAdapter
 import java.time.LocalDateTime
 

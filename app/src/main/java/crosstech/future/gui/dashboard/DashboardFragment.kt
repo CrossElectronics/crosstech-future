@@ -1,4 +1,4 @@
-package crosstech.future.gui
+package crosstech.future.gui.dashboard
 
 import android.app.Activity
 import android.os.Bundle
@@ -15,7 +15,7 @@ import crosstech.future.logics.Utils.Companion.toReadable
 import crosstech.future.logics.managers.TasksManager
 import crosstech.future.logics.models.TaskListAdapter
 
-class DashboardFragment: Fragment(R.layout.dashboard_fragment)
+class DashboardFragment : Fragment(R.layout.dashboard_fragment)
 {
     private lateinit var binding: DashboardFragmentBinding
     private lateinit var global: Global

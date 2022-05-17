@@ -1,4 +1,4 @@
-package crosstech.future.gui
+package crosstech.future.gui.milestones
 
 import androidx.fragment.app.Fragment
 import crosstech.future.Global
