@@ -25,10 +25,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "parcel"
-private const val ARG_PARAM2 = "mode" // mode = true: add task; false: edit task
-
 class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
 {
     private lateinit var binding: TaskEditFragmentBinding
@@ -300,6 +296,9 @@ class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
 
     companion object
     {
+        private const val ARG_PARAM1 = "parcel"
+        private const val ARG_PARAM2 = "mode" // mode = true: add task; false: edit task
+
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
