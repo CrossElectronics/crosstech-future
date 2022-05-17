@@ -68,7 +68,7 @@
                     android:layout_marginEnd="4dp"
                     android:textSize="12sp"
                     tools:text="Scheduled Start"
-                    android:textColor="@color/secondaryLightColor" />
+                    android:textColor="@color/purple_200" />
 
                 <TextView
                     android:id="@+id/subtitleText"
