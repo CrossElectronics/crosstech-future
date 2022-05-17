@@ -6,18 +6,18 @@
 
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="crosstech.future.gui.DashboardFragment"
+        android:name="crosstech.future.gui.dashboard.DashboardFragment"
         android:label="DashboardFragment" />
     <fragment
         android:id="@+id/milestoneFragment"
-        android:name="crosstech.future.gui.MilestoneFragment"
+        android:name="crosstech.future.gui.milestones.MilestoneFragment"
         android:label="MilestoneFragment" />
     <fragment
         android:id="@+id/statsFragment"
-        android:name="crosstech.future.gui.StatsFragment"
+        android:name="crosstech.future.gui.stats.StatsFragment"
         android:label="StatsFragment" />
     <fragment
         android:id="@+id/tasksFragment"
-        android:name="crosstech.future.gui.TasksFragment"
+        android:name="crosstech.future.gui.tasks.TasksFragment"
         android:label="TasksFragment" />
 </navigation>

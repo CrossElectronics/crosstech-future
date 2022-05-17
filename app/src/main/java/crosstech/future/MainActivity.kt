@@ -2,14 +2,11 @@ package crosstech.future
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import crosstech.future.databinding.ActivityMainBinding
 import crosstech.future.gui.Initializations
-import crosstech.future.gui.TaskEditFragment
+import crosstech.future.gui.tasks.TaskEditFragment
 
 class MainActivity : AppCompatActivity()
 {

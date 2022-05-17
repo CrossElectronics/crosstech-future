@@ -1,4 +1,4 @@
-package crosstech.future.gui
+package crosstech.future.gui.stats
 
 import androidx.fragment.app.Fragment
 import crosstech.future.R
