@@ -30,11 +30,6 @@ import java.util.*
 private const val ARG_PARAM1 = "parcel"
 private const val ARG_PARAM2 = "mode" // mode = true: add task; false: edit task
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TaskEditFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
 {
     private lateinit var binding: TaskEditFragmentBinding
