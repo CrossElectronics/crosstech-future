@@ -73,6 +73,7 @@
                     android:layout_marginEnd="@dimen/card_title_padding" />
 
                 <TextView
+                    android:id="@+id/open_milestone_tasks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/worksans_bold"
@@ -109,6 +110,7 @@
                     android:layout_marginEnd="@dimen/card_title_padding" />
 
                 <TextView
+                    android:id="@+id/closed_milestone_tasks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/worksans_bold"
@@ -145,6 +147,7 @@
                     android:layout_marginEnd="@dimen/card_title_padding" />
 
                 <TextView
+                    android:id="@+id/archived_milestone_tasks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/worksans_bold"
@@ -161,6 +164,7 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/edit_milestone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/statsPanel"
@@ -173,6 +177,7 @@
             android:layout_marginEnd="@dimen/card_title_padding" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/milestone_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="0dp"

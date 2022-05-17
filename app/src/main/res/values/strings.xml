@@ -43,4 +43,5 @@
     <string name="memory_usage">Save Size</string>
     <string name="add_a_milestone">Add a milestone</string>
     <string name="edit">Edit</string>
+    <string name="no_open_tasks">No open tasks</string>
 </resources>
