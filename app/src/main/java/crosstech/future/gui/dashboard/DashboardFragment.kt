@@ -70,7 +70,8 @@ class DashboardFragment : Fragment(R.layout.dashboard_fragment)
     private fun updateSize()
     {
         val size =
-            Global.TASKS_FILE.getSaveSize(activity) + Global.ARCHIVE_FILE.getSaveSize(activity)
+            Global.TASKS_FILE.getSaveSize(activity) + Global.ARCHIVE_FILE.getSaveSize(activity) +
+            Global.MILESTONES_FILE.getSaveSize(activity)
         binding.tvTotalUsage.text = size.toReadable()
     }
 }
