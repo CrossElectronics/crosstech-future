@@ -10,4 +10,9 @@
         <item name="android:fontFamily">@font/roboto_mono_regul</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="ThemeOverlay.App.Button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="android:textColor">@color/purple_200</item>
+    </style>
 </resources>
