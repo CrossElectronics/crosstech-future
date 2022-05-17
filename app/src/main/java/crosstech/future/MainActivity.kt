@@ -32,6 +32,8 @@ class MainActivity : AppCompatActivity()
         global = applicationContext as Global
         global.tasks = Initializations.loadData(Global.TASKS_FILE, this) ?: mutableListOf()
         global.archive = Initializations.loadData(Global.ARCHIVE_FILE, this) ?: mutableListOf()
+        global.milestones =
+            Initializations.loadData(Global.MILESTONES_FILE, this) ?: mutableListOf()
     }
 
     override fun onBackPressed()
