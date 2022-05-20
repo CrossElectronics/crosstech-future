@@ -58,11 +58,14 @@ class TasksManager
 
         fun filterTodayTask(tasks: List<Task>): List<Task>
         {
+            val today = LocalDate.now().atStartOfDay()
             return tasks
-                .filter { it.scheduledTime != null }
+                .filter { it.scheduledTime != null && it.status != TaskStatus.Completed }
                 .filter {
-                    it.scheduledTime!!.isAfter(LocalDate.now().atStartOfDay())
-                    && it.scheduledTime!!.isBefore(LocalDate.now().plusDays(1).atStartOfDay())
+                    today.isAfter(it.scheduledTime!!) &&
+                    today.isBefore(it.deadline ?: today.plusDays(1))
+                    // if today is between scheduled time and deadline
+                    // if deadline does not exist, make it today + 1
                 }
                 .sortedByDescending { it.scheduledTime }
         }
