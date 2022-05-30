@@ -55,8 +55,7 @@ class MilestoneFragment : Fragment(R.layout.milestones_fragment)
                 setPositiveButton(getString(R.string.save)) { _, _ ->
                     val milestone = Milestone(nameField.text.toString(),
                                               descField.text.toString(),
-                                              mutableListOf(),
-                                              mutableListOf())
+                                              mutableListOf(), null)
                     global.milestones.add(milestone)
                     adapter.data = global.milestones
                     val index = global.milestones.indexOf(milestone)

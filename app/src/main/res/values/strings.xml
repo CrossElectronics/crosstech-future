@@ -49,4 +49,7 @@
     <string name="devotions">Devotions</string>
     <string name="hours">Hours</string>
     <string name="ongoing">Ongoing</string>
+    <string name="commitments">Commitments</string>
+    <string name="empty_commit_time">-:--</string>
+    <string name="no_commits">No commits</string>
 </resources>

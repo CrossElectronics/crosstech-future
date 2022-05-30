@@ -11,10 +11,10 @@ class MilestoneViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 {
     val title: TextView = itemView.findViewById(R.id.titleText)
     val description: TextView = itemView.findViewById(R.id.descText)
-    val openTask: TextView = itemView.findViewById(R.id.open_milestone_tasks)
-    val closedTask: TextView = itemView.findViewById(R.id.closed_milestone_tasks)
-    val archivedTask: TextView = itemView.findViewById(R.id.archived_milestone_tasks)
-    val chip: Chip = itemView.findViewById(R.id.milestone_chip)
+    val ongoingCommitTime: TextView = itemView.findViewById(R.id.ongoing_commit_time)
+    val commitCount: TextView = itemView.findViewById(R.id.commitment_count)
+    val commitHours: TextView = itemView.findViewById(R.id.commit_hours)
+    val lastCommit: Chip = itemView.findViewById(R.id.last_commit)
     val editButton: Button = itemView.findViewById(R.id.edit_milestone)
     val view: View = itemView
 }
