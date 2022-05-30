@@ -6,18 +6,17 @@ import crosstech.future.logics.Utils.Companion.computeSHA1
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Commit(val startTime: Long, val endTime: Long?, val commitMessage: String?) : Parcelable
+data class Commit(val startTime: Long, val endTime: Long, val commitMessage: String) : Parcelable
 {
-    fun getSHA1(): String?
+    fun getSHA1(): String
     {
-        if (endTime !is Long || commitMessage !is String) return null
         return (startTime.toString() + endTime.toString() + commitMessage).computeSHA1()
     }
 
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
-        parcel.readValue(Long::class.java.classLoader) as? Long,
-        parcel.readString())
+        parcel.readLong(),
+        parcel.readString()!!)
 
     override fun writeToParcel(parcel: Parcel, flags: Int)
     {
