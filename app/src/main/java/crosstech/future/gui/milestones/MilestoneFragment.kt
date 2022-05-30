@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,9 +40,15 @@ class MilestoneFragment : Fragment(R.layout.milestones_fragment)
     {
         super.onViewCreated(view, savedInstanceState)
         val milestones = global.milestones
-        adapter = MilestoneListAdapter(milestones) { v, milestone ->
-            buildDialog(requireContext().getString(R.string.create_milestone), milestone)
-        }
+        adapter = MilestoneListAdapter(
+            milestones,
+            editListener = { _, m ->
+                buildDialog(requireContext().getString(R.string.create_milestone), m)
+            },
+            cardListener = { _, m ->
+
+            }
+        )
         milestoneRecycler.adapter = adapter
         milestoneRecycler.layoutManager = LinearLayoutManager(activity)
         binding.addMilestoneFab.setOnClickListener {

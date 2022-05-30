@@ -7,13 +7,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import crosstech.future.R
 import crosstech.future.logics.Utils.Companion.toLocalDateTime
-import crosstech.future.logics.enums.TaskStatus
 import java.time.Duration
 import java.time.LocalDateTime
-import java.time.ZoneOffset
 
 class MilestoneListAdapter(var data: MutableList<Milestone>,
-                           private val listener: (View, Milestone) -> Unit) :
+                           private val editListener: (View, Milestone) -> Unit,
+                           private val cardListener: (View, Milestone) -> Unit) :
     RecyclerView.Adapter<MilestoneViewHolder>()
 {
     private lateinit var context: Context
@@ -56,7 +55,8 @@ class MilestoneListAdapter(var data: MutableList<Milestone>,
                 lastCommit.text = datum.commits.first().getSHA1().substring(0 .. 6)
             }
 
-            editButton.setOnClickListener { listener(it, datum) }
+            editButton.setOnClickListener { editListener(it, datum) }
+            view.setOnClickListener { cardListener(it, datum) }
         }
     }
 
