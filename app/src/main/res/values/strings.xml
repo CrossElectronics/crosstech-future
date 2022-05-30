@@ -48,8 +48,9 @@
     <string name="cancel">Cancel</string>
     <string name="devotions">Devotions</string>
     <string name="hours">Hours</string>
-    <string name="ongoing">Ongoing</string>
+    <string name="ongoing">ongoing</string>
     <string name="commitments">Commitments</string>
     <string name="empty_commit_time">-:--</string>
     <string name="no_commits">No commits</string>
+    <string name="started">Started</string>
 </resources>
