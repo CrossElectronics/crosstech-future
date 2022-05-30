@@ -2,26 +2,32 @@ package crosstech.future.logics.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import crosstech.future.logics.Utils.Companion.getTotalHours
 import kotlinx.serialization.Serializable
+import java.time.Period
 
 @Serializable
 data class Milestone(var name: String,
                      var description: String,
-                     var tasks: MutableList<Task>,
-                     var archive: MutableList<ArchivedTask>) : Parcelable
+                     var commits: MutableList<Commit>) : Parcelable
 {
+    fun getCommitHours(): Double
+    {
+        return commits
+            .filter { it.endTime is Long && it.commitMessage is String }
+            .sumOf { getTotalHours(it.startTime, it.endTime!!) }
+    }
+
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.readString()!!,
-        parcel.createTypedArrayList(Task.CREATOR)?.toMutableList() ?: mutableListOf(),
-        parcel.createTypedArrayList(ArchivedTask.CREATOR)?.toMutableList() ?: mutableListOf())
+        parcel.createTypedArrayList(Commit.CREATOR)?.toMutableList() ?: mutableListOf())
 
     override fun writeToParcel(parcel: Parcel, flags: Int)
     {
         parcel.writeString(name)
         parcel.writeString(description)
-        parcel.writeTypedList(tasks)
-        parcel.writeTypedList(archive)
+        parcel.writeTypedList(commits)
     }
 
     override fun describeContents(): Int = 0
@@ -38,5 +44,4 @@ data class Milestone(var name: String,
             return arrayOfNulls(size)
         }
     }
-
 }

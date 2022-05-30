@@ -3,6 +3,7 @@ package crosstech.future.logics
 import android.content.Context
 import java.io.File
 import java.security.MessageDigest
+import java.time.*
 
 class Utils
 {
@@ -32,5 +33,11 @@ class Utils
                 else                     -> "$this B"
             }
         }
+
+        fun Long.toLocalDateTime(): LocalDateTime =
+            LocalDateTime.ofInstant(Instant.ofEpochMilli(this), ZoneOffset.UTC)
+
+        fun getTotalHours(L: Long, R: Long): Double = (R - L) / 1000.0 / 60 / 60
+
     }
 }

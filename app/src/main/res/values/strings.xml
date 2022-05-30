@@ -46,4 +46,7 @@
     <string name="no_open_tasks">No open tasks</string>
     <string name="create_milestone">Create Milestone</string>
     <string name="cancel">Cancel</string>
+    <string name="devotions">Devotions</string>
+    <string name="hours">Hours</string>
+    <string name="ongoing">Ongoing</string>
 </resources>

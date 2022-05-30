@@ -1,5 +1,6 @@
 package crosstech.future.logics.models.serializers
 
+import crosstech.future.logics.Utils.Companion.toLocalDateTime
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
@@ -17,7 +18,7 @@ object LocalDateTimeSerializer : KSerializer<LocalDateTime>
     override fun deserialize(decoder: Decoder): LocalDateTime
     {
         val timestamp = decoder.decodeLong()
-        return LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneOffset.UTC)
+        return timestamp.toLocalDateTime()
     }
 
     override val descriptor: SerialDescriptor
