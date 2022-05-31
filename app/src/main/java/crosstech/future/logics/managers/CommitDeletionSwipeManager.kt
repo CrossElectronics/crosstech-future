@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.google.android.material.snackbar.Snackbar
 import crosstech.future.Global
-import crosstech.future.R
 import crosstech.future.gui.Initializations.Companion.saveData
 import crosstech.future.logics.models.CommitListAdapter
 import crosstech.future.logics.models.Milestone
