@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -39,44 +41,67 @@ class MilestoneFragment : Fragment(R.layout.milestones_fragment)
     {
         super.onViewCreated(view, savedInstanceState)
         val milestones = global.milestones
-        adapter = MilestoneListAdapter(milestones) { v, milestone -> }
+        adapter = MilestoneListAdapter(
+            milestones,
+            editListener = { _, m ->
+                buildDialog(requireContext().getString(R.string.create_milestone), m)
+            },
+            cardListener = { _, m ->
+                val fragment = CommitFragment.newInstance(m)
+                requireActivity().supportFragmentManager.beginTransaction().apply {
+                    setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    replace(R.id.fragmentContainerView, fragment)
+                    addToBackStack(null)
+                    commit()
+                }
+            }
+        )
         milestoneRecycler.adapter = adapter
         milestoneRecycler.layoutManager = LinearLayoutManager(activity)
         binding.addMilestoneFab.setOnClickListener {
-            val dialogBuilder = MaterialAlertDialogBuilder(requireContext(),
-                                                           R.style.ThemeOverlay_App_MaterialAlertDialog)
-            val dialogView = LayoutInflater.from(requireContext())
-                .inflate(R.layout.dialog_create_milestone, null, false)
-            val nameField: EditText = dialogView.findViewById(R.id.milestone_name)
-            val descField: EditText = dialogView.findViewById(R.id.milestone_desc)
-            dialogBuilder.apply {
-                setView(dialogView)
-                setTitle(getString(R.string.create_milestone))
-                setPositiveButton(getString(R.string.save)) { _, _ ->
-                    val milestone = Milestone(nameField.text.toString(),
-                                              descField.text.toString(),
-                                              mutableListOf(),
-                                              mutableListOf())
-                    global.milestones.add(milestone)
-                    adapter.data = global.milestones
-                    val index = global.milestones.indexOf(milestone)
-                    adapter.notifyItemInserted(index)
-                    milestoneRecycler.scrollToPosition(index)
-                    global.milestones.saveData(Global.MILESTONES_FILE, context)
-                }
-                setNegativeButton(getString(R.string.cancel), null)
-            }
-            val dialog = dialogBuilder.create()
-            dialog.show()
-            val positiveBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            positiveBtn.isEnabled = false
-            fun updateButton()
-            {
-                positiveBtn.isEnabled =
-                    !(nameField.text.toString() == "" || descField.text.toString() == "")
-            }
-            nameField.addTextChangedListener { updateButton() }
-            descField.addTextChangedListener { updateButton() }
+            buildDialog(requireContext().getString(R.string.create_milestone))
         }
+    }
+
+    private fun buildDialog(title: String,
+                            toReplace: Milestone? = null)
+    {
+        val dialogBuilder = MaterialAlertDialogBuilder(requireContext(),
+                                                       R.style.ThemeOverlay_App_MaterialAlertDialog)
+        val dialogView = LayoutInflater.from(requireContext())
+            .inflate(R.layout.dialog_create_milestone, null, false)
+        val nameField: EditText = dialogView.findViewById(R.id.milestone_name)
+        val descField: EditText = dialogView.findViewById(R.id.milestone_desc)
+        nameField.setText(toReplace?.name)
+        descField.setText(toReplace?.description)
+        dialogBuilder.apply {
+            setView(dialogView)
+            setTitle(title)
+            setPositiveButton(getString(R.string.save)) { _, _ ->
+                val milestone = Milestone(nameField.text.toString(),
+                                          descField.text.toString(),
+                                          mutableListOf(), null)
+                if (toReplace != null) global.milestones.remove(toReplace)
+                global.milestones.add(milestone)
+                adapter.data = global.milestones
+                val index = global.milestones.indexOf(milestone)
+                if (toReplace == null) adapter.notifyItemInserted(index)
+                else adapter.notifyItemChanged(index)
+                milestoneRecycler.scrollToPosition(index)
+                global.milestones.saveData(Global.MILESTONES_FILE, context)
+            }
+            setNegativeButton(getString(R.string.cancel), null)
+        }
+        val dialog = dialogBuilder.create()
+        dialog.show()
+        val positiveBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        positiveBtn.isEnabled = false
+        fun updateButton()
+        {
+            positiveBtn.isEnabled =
+                !(nameField.text.toString() == "" || descField.text.toString() == "")
+        }
+        nameField.addTextChangedListener { updateButton() }
+        descField.addTextChangedListener { updateButton() }
     }
 }

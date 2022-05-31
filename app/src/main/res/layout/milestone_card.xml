@@ -67,13 +67,13 @@
                     android:textSize="@dimen/card_title_text_size"
                     app:layout_constraintTop_toBottomOf="@id/titleText"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:text="@string/open"
+                    android:text="@string/ongoing"
                     android:textColor="@color/secondaryTextColor"
                     android:layout_marginStart="@dimen/card_title_padding"
                     android:layout_marginEnd="@dimen/card_title_padding" />
 
                 <TextView
-                    android:id="@+id/open_milestone_tasks"
+                    android:id="@+id/ongoing_commit_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/worksans_bold"
@@ -81,7 +81,7 @@
                     android:textSize="@dimen/card_title_text_size"
                     app:layout_constraintTop_toBottomOf="@id/titleText"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:text="5"
+                    tools:text="0:15"
                     android:textAlignment="center"
                     android:textColor="@color/secondaryTextColor"
                     android:layout_marginStart="@dimen/card_title_padding"
@@ -104,13 +104,13 @@
                     android:textSize="@dimen/card_title_text_size"
                     app:layout_constraintTop_toBottomOf="@id/titleText"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:text="@string/closed"
+                    android:text="@string/commitments"
                     android:textColor="@color/secondaryTextColor"
                     android:layout_marginStart="@dimen/card_title_padding"
                     android:layout_marginEnd="@dimen/card_title_padding" />
 
                 <TextView
-                    android:id="@+id/closed_milestone_tasks"
+                    android:id="@+id/commitment_count"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/worksans_regul"
@@ -141,13 +141,13 @@
                     android:textSize="@dimen/card_title_text_size"
                     app:layout_constraintTop_toBottomOf="@id/titleText"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:text="@string/archived"
+                    android:text="@string/hours"
                     android:textColor="@color/secondaryTextColor"
                     android:layout_marginStart="@dimen/card_title_padding"
                     android:layout_marginEnd="@dimen/card_title_padding" />
 
                 <TextView
-                    android:id="@+id/archived_milestone_tasks"
+                    android:id="@+id/commit_hours"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/worksans_regul"
@@ -155,7 +155,7 @@
                     android:textSize="@dimen/card_title_text_size"
                     app:layout_constraintTop_toBottomOf="@id/titleText"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:text="28"
+                    tools:text="28.02"
                     android:textAlignment="center"
                     android:textColor="@color/secondaryTextColor"
                     android:layout_marginStart="@dimen/card_title_padding"
@@ -177,9 +177,10 @@
             android:layout_marginEnd="@dimen/card_title_padding" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/milestone_chip"
+            android:id="@+id/last_commit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
             android:elevation="0dp"
             app:layout_constraintTop_toBottomOf="@id/statsPanel"
             app:layout_constraintLeft_toLeftOf="parent"

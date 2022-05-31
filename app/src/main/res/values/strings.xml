@@ -19,7 +19,7 @@
     <string name="add_task">Add task</string>
     <string name="name">Name</string>
     <string name="description">Description</string>
-    <string name="date">Creation date</string>
+    <string name="creation_date">Creation date</string>
     <string name="time">Time</string>
     <string name="urgency">URGENCY</string>
     <string name="difficulty">DIFFICULTY</string>
@@ -46,4 +46,20 @@
     <string name="no_open_tasks">No open tasks</string>
     <string name="create_milestone">Create Milestone</string>
     <string name="cancel">Cancel</string>
+    <string name="devotions">Devotions</string>
+    <string name="hours">Hours</string>
+    <string name="ongoing">Ongoing</string>
+    <string name="commitments">Commitments</string>
+    <string name="empty_commit_time">-:--</string>
+    <string name="no_commits">No commits</string>
+    <string name="started">Started</string>
+    <string name="commit_to_the_skill_now">Commit to the skill now</string>
+    <string name="date">Date</string>
+    <string name="commitment_summary">Commitment summary</string>
+    <string name="starting_commit_date">Starting or concluding this commitment on...</string>
+    <string name="start_a_new_commit">Start a new commitment</string>
+    <string name="conclude_current_commit">Conclude current commitment</string>
+    <string name="at">At...</string>
+    <string name="discard">Discard</string>
+    <string name="discard_confirmation">Discard this ongoing commitment? This action cannot be undone</string>
 </resources>

@@ -17,6 +17,8 @@ import com.google.android.material.timepicker.TimeFormat.CLOCK_24H
 import crosstech.future.Global
 import crosstech.future.R
 import crosstech.future.databinding.TaskEditFragmentBinding
+import crosstech.future.logics.Utils
+import crosstech.future.logics.Utils.Companion.parseTime
 import crosstech.future.logics.enums.TaskStatus
 import crosstech.future.logics.enums.Urgency
 import crosstech.future.logics.models.Task
@@ -281,11 +283,6 @@ class TaskEditFragment : DialogFragment(), Toolbar.OnMenuItemClickListener
             // TODO: Reminder
             // Reminds user before starting, starting, and before deadline
         }
-    }
-
-    private fun parseTime(d: TextInputEditText, t: TextInputEditText): LocalDateTime
-    {
-        return LocalDateTime.parse(d.text.toString() + "T" + t.text.toString())
     }
 
     @SuppressLint("SetTextI18n")
