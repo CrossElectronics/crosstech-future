@@ -24,6 +24,7 @@ import com.google.android.material.timepicker.TimeFormat
 import crosstech.future.Global
 import crosstech.future.R
 import crosstech.future.databinding.FragmentCommitBinding
+import crosstech.future.gui.Initializations.Companion.saveData
 import crosstech.future.logics.Utils
 import crosstech.future.logics.Utils.Companion.toLocalDateTime
 import crosstech.future.logics.models.CommitListAdapter
@@ -223,6 +224,7 @@ class CommitFragment : Fragment(R.layout.fragment_commit)
                         .toInstant()
                         .toEpochMilli()
                 binding.updateOngoingCommit()
+                global.milestones.saveData(Global.MILESTONES_FILE, context)
             }
             setNegativeButton(getString(R.string.cancel), null)
         }
