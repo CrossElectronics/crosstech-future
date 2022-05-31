@@ -10,8 +10,8 @@ class Utils
 {
     companion object
     {
-        val fullFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-        val timeOnlyFormatter = DateTimeFormatter.ofPattern("HH:mm")
+        val fullFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val timeOnlyFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
         private fun ByteArray.toHex(): String =
             joinToString(separator = "") { eachByte -> "%02x".format(eachByte) }
 
@@ -27,7 +27,7 @@ class Utils
             return if (file.exists()) file.length() else 0
         }
 
-        fun Long.toReadable(): String
+        fun Long.toReadableSize(): String
         {
             return when
             {

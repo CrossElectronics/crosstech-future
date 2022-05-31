@@ -11,7 +11,7 @@ import crosstech.future.Global
 import crosstech.future.R
 import crosstech.future.databinding.DashboardFragmentBinding
 import crosstech.future.logics.Utils.Companion.getSaveSize
-import crosstech.future.logics.Utils.Companion.toReadable
+import crosstech.future.logics.Utils.Companion.toReadableSize
 import crosstech.future.logics.managers.TasksManager
 import crosstech.future.logics.models.TaskListAdapter
 
@@ -72,6 +72,6 @@ class DashboardFragment : Fragment(R.layout.dashboard_fragment)
         val size =
             Global.TASKS_FILE.getSaveSize(activity) + Global.ARCHIVE_FILE.getSaveSize(activity) +
             Global.MILESTONES_FILE.getSaveSize(activity)
-        binding.tvTotalUsage.text = size.toReadable()
+        binding.tvTotalUsage.text = size.toReadableSize()
     }
 }
