@@ -27,6 +27,7 @@ import crosstech.future.databinding.FragmentCommitBinding
 import crosstech.future.gui.Initializations.Companion.saveData
 import crosstech.future.logics.Utils
 import crosstech.future.logics.Utils.Companion.toLocalDateTime
+import crosstech.future.logics.models.Commit
 import crosstech.future.logics.models.CommitListAdapter
 import crosstech.future.logics.models.Milestone
 import java.time.Duration
@@ -48,6 +49,7 @@ class CommitFragment : Fragment(R.layout.fragment_commit)
     private lateinit var global: Global
     private lateinit var binding: FragmentCommitBinding
     private lateinit var adapter: CommitListAdapter
+    private lateinit var recyclerView: RecyclerView
     private var timer: Timer? = null
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -92,6 +94,7 @@ class CommitFragment : Fragment(R.layout.fragment_commit)
             msDescription.text = milestone.description
             updateOngoingCommit()
             adapter = CommitListAdapter(milestone.commits)
+            recyclerView = commitRecycler
             commitRecycler.adapter = adapter
             commitRecycler.layoutManager = LinearLayoutManager(context)
 
@@ -109,11 +112,14 @@ class CommitFragment : Fragment(R.layout.fragment_commit)
                         dy: Int
                     )
                     {
-                        if (dy > 0) addCommitFab.hide()
-                        else addCommitFab.show()
+                        if (dy > 0 || milestone.ongoingCommit != null) addCommitFab.hide()
+                        else if (dy < 0 && milestone.ongoingCommit == null) addCommitFab.show()
                     }
                 }
             )
+
+            saveOngoing.setOnClickListener(completeCommitListener)
+            discardOngoing.setOnClickListener(discardCommitOnClick)
         }
     }
 
@@ -154,13 +160,72 @@ class CommitFragment : Fragment(R.layout.fragment_commit)
         addCommitFab.isVisible = milestone.ongoingCommit == null
     }
 
-    private fun setButtonAvailability(dateField: EditText, timeField: EditText, button: Button)
+    private fun setButtonAvailability(dateField: EditText,
+                                      timeField: EditText,
+                                      isMsgLegal: Boolean,
+                                      button: Button)
     {
         val timeEntered = Utils.parseTime(dateField, timeField)
-        button.isEnabled = timeEntered.isBefore(LocalDateTime.now())
+        button.isEnabled = timeEntered.isBefore(LocalDateTime.now()) && isMsgLegal
+    }
+
+    private val completeCommitListener = View.OnClickListener {
+        if (milestone.ongoingCommit == null) return@OnClickListener
+        buildDialog(true, getString(R.string.conclude_current_commit))
+        { date, time, msg ->
+            val commit = Commit(
+                milestone.ongoingCommit!!,
+                Utils.parseTime(date, time, LocalDateTime.now().second)
+                    .atZone(ZoneId.systemDefault())
+                    .toInstant()
+                    .toEpochMilli(),
+                msg.text.toString()
+            )
+            milestone.commits.add(commit)
+            milestone.commits.sortByDescending { it.endTime }
+            milestone.ongoingCommit = null
+            // Update UI stuff
+            binding.updateOngoingCommit()
+            val index = milestone.commits.indexOf(commit)
+            adapter.notifyItemInserted(index)
+            recyclerView.scrollToPosition(index)
+
+            global.milestones.saveData(Global.MILESTONES_FILE, requireContext())
+        }
+    }
+
+    private val discardCommitOnClick = View.OnClickListener {
+        MaterialAlertDialogBuilder(requireContext(),
+                                   R.style.ThemeOverlay_App_MaterialAlertDialog)
+            .setMessage("Discard this ongoing commitment?")
+            .setNegativeButton(resources.getString(R.string.cancel)) { _, _ ->
+                // Respond to negative button press
+            }
+            .setPositiveButton(resources.getString(R.string.discard)) { _, _ ->
+                // Respond to positive button press
+                milestone.ongoingCommit = null
+                binding.updateOngoingCommit()
+            }
+            .show()
     }
 
     private val addCommitOnClick = View.OnClickListener {
+        buildDialog(false,
+                    getString(R.string.start_a_new_commit)) { date, time, _ ->
+            milestone.ongoingCommit =
+                Utils.parseTime(date, time, LocalDateTime.now().second)
+                    .atZone(ZoneId.systemDefault())
+                    .toInstant()
+                    .toEpochMilli()
+            binding.updateOngoingCommit()
+            global.milestones.saveData(Global.MILESTONES_FILE, requireContext())
+        }
+    }
+
+    private fun buildDialog(hasMsgField: Boolean,
+                            title: String,
+                            function: (EditText, EditText, EditText) -> Unit)
+    {
         val dialogBuilder = MaterialAlertDialogBuilder(requireContext(),
                                                        R.style.ThemeOverlay_App_MaterialAlertDialog)
         val dialogView = LayoutInflater.from(requireContext())
@@ -171,7 +236,8 @@ class CommitFragment : Fragment(R.layout.fragment_commit)
         val timePickerField: EditText = dialogView.findViewById(R.id.time_picker)
         timePickerField.setText(LocalDateTime.now().format(Utils.timeOnlyFormatter))
         val messageFieldContainer: View = dialogView.findViewById(R.id.commit_msg_container)
-        messageFieldContainer.visibility = View.GONE
+        val messageField: EditText = dialogView.findViewById(R.id.commit_msg_field)
+        messageFieldContainer.visibility = if (hasMsgField) View.VISIBLE else View.GONE
         val calRest =
             CalendarConstraints.Builder().setValidator(DateValidatorPointBackward.now())
 
@@ -216,15 +282,9 @@ class CommitFragment : Fragment(R.layout.fragment_commit)
 
         dialogBuilder.apply {
             setView(dialogView)
-            setTitle(getString(R.string.start_a_new_commit))
+            setTitle(title)
             setPositiveButton(getString(R.string.save)) { _, _ ->
-                milestone.ongoingCommit =
-                    Utils.parseTime(datePickerField, timePickerField, LocalDateTime.now().second)
-                        .atZone(ZoneId.systemDefault())
-                        .toInstant()
-                        .toEpochMilli()
-                binding.updateOngoingCommit()
-                global.milestones.saveData(Global.MILESTONES_FILE, context)
+                function(datePickerField, timePickerField, messageField)
             }
             setNegativeButton(getString(R.string.cancel), null)
         }
@@ -232,15 +292,25 @@ class CommitFragment : Fragment(R.layout.fragment_commit)
         val dialog = dialogBuilder.create()
         dialog.show()
 
+        val button = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        button.isEnabled = !hasMsgField
         datePickerField.addTextChangedListener {
             setButtonAvailability(datePickerField,
                                   timePickerField,
-                                  dialog.getButton(AlertDialog.BUTTON_POSITIVE))
+                                  (messageField.text.toString() != "" && hasMsgField) || !hasMsgField,
+                                  button)
         }
         timePickerField.addTextChangedListener {
             setButtonAvailability(datePickerField,
                                   timePickerField,
-                                  dialog.getButton(AlertDialog.BUTTON_POSITIVE))
+                                  (messageField.text.toString() != "" && hasMsgField) || !hasMsgField,
+                                  button)
+        }
+        messageField.addTextChangedListener {
+            setButtonAvailability(datePickerField,
+                                  timePickerField,
+                                  (messageField.text.toString() != "" && hasMsgField) || !hasMsgField,
+                                  button)
         }
     }
 

@@ -1,5 +1,6 @@
 package crosstech.future.logics.models
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -25,7 +26,7 @@ class CommitListAdapter(var data: MutableList<Commit>) : RecyclerView.Adapter<Co
         with(holder) {
             hashField.text = datum.getSHA1().substring(0 .. 6)
             msgField.text = datum.commitMessage
-            durationField.text = String.format(".%2f", datum.getDuration())
+            durationField.text = String.format("%.2f", datum.getDuration()) + " h"
             timeField.text =
                 String.format(datum.getStartTime().format(Utils.fullFormatter) + " ~ "
                               + datum.getEndTime().format(Utils.timeOnlyFormatter))

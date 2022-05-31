@@ -56,7 +56,9 @@
     <string name="commit_to_the_skill_now">Commit to the skill now</string>
     <string name="date">Date</string>
     <string name="commitment_summary">Commitment summary</string>
-    <string name="starting_commit_date">Starting this commitment on...</string>
+    <string name="starting_commit_date">Starting or concluding this commitment on...</string>
     <string name="start_a_new_commit">Start a new commitment</string>
+    <string name="conclude_current_commit">Conclude current commitment</string>
     <string name="at">At...</string>
+    <string name="discard">Discard</string>
 </resources>
