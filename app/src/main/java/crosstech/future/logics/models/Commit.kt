@@ -2,16 +2,23 @@ package crosstech.future.logics.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import crosstech.future.logics.Utils
 import crosstech.future.logics.Utils.Companion.computeSHA1
+import crosstech.future.logics.Utils.Companion.toLocalDateTime
 import kotlinx.serialization.Serializable
+import java.time.LocalDateTime
 
 @Serializable
 data class Commit(val startTime: Long, val endTime: Long, val commitMessage: String) : Parcelable
 {
-    fun getSHA1(): String
-    {
-        return (startTime.toString() + endTime.toString() + commitMessage).computeSHA1()
-    }
+    fun getSHA1(): String =
+        (startTime.toString() + endTime.toString() + commitMessage).computeSHA1()
+
+    fun getDuration(): Double = Utils.getTotalHours(startTime, endTime)
+
+    fun getStartTime(): LocalDateTime = startTime.toLocalDateTime()
+
+    fun getEndTime(): LocalDateTime = endTime.toLocalDateTime()
 
     constructor(parcel: Parcel) : this(
         parcel.readLong(),

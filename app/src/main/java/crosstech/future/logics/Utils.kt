@@ -4,11 +4,14 @@ import android.content.Context
 import java.io.File
 import java.security.MessageDigest
 import java.time.*
+import java.time.format.DateTimeFormatter
 
 class Utils
 {
     companion object
     {
+        val fullFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val timeOnlyFormatter = DateTimeFormatter.ofPattern("HH:mm")
         private fun ByteArray.toHex(): String =
             joinToString(separator = "") { eachByte -> "%02x".format(eachByte) }
 
