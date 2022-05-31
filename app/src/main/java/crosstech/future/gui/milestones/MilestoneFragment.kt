@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -46,7 +47,13 @@ class MilestoneFragment : Fragment(R.layout.milestones_fragment)
                 buildDialog(requireContext().getString(R.string.create_milestone), m)
             },
             cardListener = { _, m ->
-
+                val fragment = CommitFragment.newInstance(m)
+                requireActivity().supportFragmentManager.beginTransaction().apply {
+                    setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    replace(R.id.fragmentContainerView, fragment)
+                    addToBackStack(null)
+                    commit()
+                }
             }
         )
         milestoneRecycler.adapter = adapter

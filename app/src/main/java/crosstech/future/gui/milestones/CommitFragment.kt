@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import crosstech.future.R
 import crosstech.future.logics.models.Milestone
 
-private const val ARG_COMMIT = "milestone"
-
 /**
  * A simple [Fragment] subclass.
  * Use the [CommitFragment.newInstance] factory method to
@@ -40,15 +38,17 @@ class CommitFragment : Fragment()
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
+         * @param milestone parameter to pass
          * @return A new instance of fragment CommitFragment.
          */
         @JvmStatic
-        fun newInstance(param1: String) =
+        fun newInstance(milestone: Milestone) =
             CommitFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_COMMIT, param1)
+                    putParcelable(ARG_COMMIT, milestone)
                 }
             }
+
+        private const val ARG_COMMIT = "milestone"
     }
 }
