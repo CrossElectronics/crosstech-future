@@ -64,7 +64,8 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/task_padding">
+                    android:padding="@dimen/task_padding"
+                    android:id="@+id/ongoing_card">
 
                     <TextView
                         android:id="@+id/devotionTimer"
@@ -94,7 +95,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/task_summary_text"
-                            tools:text="@string/ongoing_devotion"
+                            android:text="@string/ongoing_devotion"
                             android:textColor="@color/secondaryTextColor" />
 
                         <LinearLayout
@@ -122,10 +123,30 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/commit_to_the_skill_now"
+                android:id="@+id/empty_list_btn" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/task_padding" />
+                android:layout_marginTop="@dimen/task_padding"
+                android:id="@+id/commit_recycler" />
         </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_commit_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/add_task"
+            app:tint="@color/white"
+            android:contentDescription="@string/add_task" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
