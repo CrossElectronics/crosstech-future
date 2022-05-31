@@ -197,7 +197,7 @@ class CommitFragment : Fragment(R.layout.fragment_commit)
     private val discardCommitOnClick = View.OnClickListener {
         MaterialAlertDialogBuilder(requireContext(),
                                    R.style.ThemeOverlay_App_MaterialAlertDialog)
-            .setMessage("Discard this ongoing commitment?")
+            .setMessage(getString(R.string.discard_confirmation))
             .setNegativeButton(resources.getString(R.string.cancel)) { _, _ ->
                 // Respond to negative button press
             }

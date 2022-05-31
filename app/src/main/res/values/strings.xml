@@ -61,4 +61,5 @@
     <string name="conclude_current_commit">Conclude current commitment</string>
     <string name="at">At...</string>
     <string name="discard">Discard</string>
+    <string name="discard_confirmation">Discard this ongoing commitment? This action cannot be undone</string>
 </resources>
