@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.datepicker.CalendarConstraints
@@ -27,6 +28,7 @@ import crosstech.future.databinding.FragmentCommitBinding
 import crosstech.future.gui.Initializations.Companion.saveData
 import crosstech.future.logics.Utils
 import crosstech.future.logics.Utils.Companion.toLocalDateTime
+import crosstech.future.logics.managers.CommitDeletionSwipeManager
 import crosstech.future.logics.models.Commit
 import crosstech.future.logics.models.CommitListAdapter
 import crosstech.future.logics.models.Milestone
@@ -95,8 +97,11 @@ class CommitFragment : Fragment(R.layout.fragment_commit)
             updateOngoingCommit()
             adapter = CommitListAdapter(milestone.commits)
             recyclerView = commitRecycler
-            commitRecycler.adapter = adapter
-            commitRecycler.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = adapter
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            val swipeManager =
+                ItemTouchHelper(CommitDeletionSwipeManager(recyclerView, milestone, global))
+            swipeManager.attachToRecyclerView(recyclerView)
 
             emptyListBtn.setOnClickListener(addCommitOnClick)
             addCommitFab.setOnClickListener(addCommitOnClick)

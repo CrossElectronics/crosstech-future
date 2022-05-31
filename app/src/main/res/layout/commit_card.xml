@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/task_padding">
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/hash_field_commit"
