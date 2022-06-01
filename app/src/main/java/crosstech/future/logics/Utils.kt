@@ -41,8 +41,8 @@ class Utils
         {
             return when
             {
-                this > 1.2 * 1024 * 1024 -> "${String.format("%2f", this / 1024.0 / 1024.0)} MB"
-                this > 1.2 * 1024        -> "${String.format("%2f", this / 1024.0)} KB"
+                this > 1.2 * 1024 * 1024 -> "${String.format("%.2f", this / 1024.0 / 1024.0)} MB"
+                this > 1.2 * 1024        -> "${String.format("%.2f", this / 1024.0)} KB"
                 else                     -> "$this B"
             }
         }
