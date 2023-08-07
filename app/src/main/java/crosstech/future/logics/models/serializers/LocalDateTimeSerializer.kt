@@ -11,6 +11,7 @@ import java.time.DateTimeException
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneOffset
+import java.time.ZonedDateTime
 import java.util.*
 
 object LocalDateTimeSerializer : KSerializer<LocalDateTime>
@@ -18,7 +19,8 @@ object LocalDateTimeSerializer : KSerializer<LocalDateTime>
     override fun deserialize(decoder: Decoder): LocalDateTime
     {
         val timestamp = decoder.decodeLong()
-        return timestamp.toLocalDateTime()
+        return ZonedDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneOffset.UTC)
+            .toLocalDateTime()
     }
 
     override val descriptor: SerialDescriptor
@@ -26,6 +28,6 @@ object LocalDateTimeSerializer : KSerializer<LocalDateTime>
 
     override fun serialize(encoder: Encoder, value: LocalDateTime)
     {
-        encoder.encodeLong(value.atZone(ZoneOffset.UTC).toInstant().toEpochMilli())
+        encoder.encodeLong(value.toInstant(ZoneOffset.UTC).toEpochMilli())
     }
 }
